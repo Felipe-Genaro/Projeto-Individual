@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Home</title>
+    <link rel="stylesheet" href="../static/styles/style.css">
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+</head>
+<body>
+
+    <!-- Navegação -->
+    <div class="nav">
+        <span></span>
+        <input type="checkbox" id="active">
+        <label for="active" class="menu-btn"><span></span></label>
+        <label for="active" class="close"></label>
+        <div class="opcoes">
+            <ul>
+                <li><a href="#" id="btn-home">Home</a></li>
+                <li><a href="#" id="btn-library">Library</a></li>
+                <li><a href="#" id="btn-profile">Profile</a></li>
+                <li><a href="#" id="btn-reviews">Reviews</a></li>
+            </ul>
+        </div>
+
+        <div class="conta">
+            <svg xmlns="http://www.w3.org/2000/svg" width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="11.5"></circle>
+                <circle cx="12" cy="8" r="4"></circle>
+                <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
+            </svg>
+            <a href="../templates/loginPerfil.html" id="login">Entrar</a>
+        </div>
+    </div>
+
+    <div class="line"></div>
+    
+    <!-- Conteúdo da Página Principal (Home) -->
+    <div class="content">
+        <div class="home" id="home">
+
+            <p> <a href="#" id="forYou" class="active">For you</a> <a href="#" id="featured">Featured</a> </p>
+            <div class="line2"></div>
+
+            <div class="postagem" id="feed-post">
+                <img src="../static/assets/perfil_padrao.png" alt="">
+                <p class="name_usuario">Nome</p>
+                <h2 class="titulo_postagem">Titulo do post</h2>
+                <p class="texto_postagem">Texto</p>
+
+                <div class="reacoes">
+                    <svg id="coracao" class="save-icon2" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/>
+                    </svg>
+
+                    <div class="postSalvo">
+                        <svg id="Icone" class="save-icon" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M19 21l-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z" />
+                            <g class="grupoAdicionado">
+                                <circle cx="18" cy="18" r="4" fill="inherit" />
+                                <path d="M18 17v2M17 18h2" stroke-width="1.2" fill="none" />
+                            </g>
+                        </svg>
+
+                        <div id="messagemSalva" class="MensagemSalva">
+                            Essa postagem foi para os seus <a href="#">favoritos</a> !
+                        </div>
+                    </div>
+                </div>
+                
+                <span class="data_post">28/01/2026</span>
+            </div>
+
+            <div class="feed-posts2" id="post-featured" style="display: none;">
+                <h2>teste</h2>
+            </div>
+
+        </div>
+
+        <section class="library" id="library">
+
+        </section>
+
+        <section class="profile" id="profile">
+
+        </section>
+
+        <section class="reviews" id="reviews">
+
+        </section>
+    </div>
+    <script>
+        let forYou = document.getElementById('forYou')
+        let apresentou = document.getElementById('post-featured');
+        let featured = document.getElementById('featured');
+        let postagem = document.getElementById('feed-post');
+
+        let home = document.getElementById('home');
+        let library = document.getElementById('library');
+        let profile = document.getElementById('profile');
+        let reviews = document.getElementById('reviews');
+
+        let btn_home = document.getElementById('btn-home');
+        let btn_library = document.getElementById('btn-library');
+        let btn_profile = document.getElementById('btn-profile');
+        let btn_reviews = document.getElementById('btn-reviews');
+
+        // Home
+        btn_home.addEventListener('click', function(e) {
+            e.preventDefault();
+
+            home.style.display = 'block';
+            library.style.display = 'none';
+            profile.style.display = 'none';
+            reviews.style.display = 'none';
+        });
+
+        // Library
+        btn_library.addEventListener('click', function(e) {
+            e.preventDefault();
+
+            home.style.display = 'none';
+            library.style.display = 'block';
+            profile.style.display = 'none';
+            reviews.style.display = 'none';
+        });
+
+        // Profile
+        btn_profile.addEventListener('click', function(e) {
+            e.preventDefault();
+
+            home.style.display = 'none';
+            library.style.display = 'none';
+            profile.style.display = 'block';
+            reviews.style.display = 'none';
+        });
+
+        // Reviews
+        btn_reviews.addEventListener('click', function(e) {
+            e.preventDefault();
+
+            home.style.display = 'none';
+            library.style.display = 'none';
+            profile.style.display = 'none';
+            reviews.style.display = 'block';
+        });
+
+
+
+            forYou.addEventListener('click', function(e) {
+                e.preventDefault();
+                forYou.classList.add('active');
+                featured.classList.remove('active');
+
+                postagem.style.display = 'block';
+                apresentou.style.display = 'none';
+            });
+
+            featured.addEventListener('click', function(e) {
+                e.preventDefault();
+                featured.classList.add('active');
+                forYou.classList.remove('active');
+                
+
+                postagem.style.display = 'none';
+                apresentou.style.display = 'block';
+            });
+
+
+    </script>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LOGIN DE PERFIL</title>
+    <link rel="stylesheet" href="../static/styles/login.css">
+</head>
+<body>
+    <div class="mensagens">
+        <h1>BEM-VINDO DE 
+            <span>VOLTA</span>, 
+            AVENTUREIRO(A)!
+        </h1>
+        <p> Sua história continua de onde parou. Entre para 
+            ver as novidades do seu feed e as enquetes da
+            semana.
+        </p>
+
+
+    </div>
+
+    <div class="campo_cadastro">
+        <h2>ENTRAR</h2>
+
+        <p>NOME DE ÚSUARIO</p>
+        <input type="text" placeholder="Informe seu nome" id="ipt_nome">
+        <p>SENHA</p>
+        <input type="password" placeholder="Senha" id="ipt_senha"> 
+
+        <button onclick="entrar()">ENTRAR</button>
+        <p class="fazer_cadastro">Ainda não tem conta? <a href="../templates/cadastroPerfil.html">Criar sua Conta</a></p>
+        <a href="../templates/index.html" id="voltar"> ⬅️ Voltar</a>
+    </div>
+</body>
+</html>
