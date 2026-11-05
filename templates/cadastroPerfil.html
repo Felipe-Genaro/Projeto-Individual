@@ -10,22 +10,95 @@
     <div class="mensagens">
         <h1>CRIE SEU PERFIL PARA UMA EXPERIÊNCIA INCRÍVEL!</h1>
 
-        <p>a</p>
+        <p>Todo grande jogo começa com uma boa 
+            história. Aqui, você acompanha as notícias, 
+            mergulha nas análises da comunidade e 
+            decide nas enquetes o que marcará a próxima
+            era dos jogos!</p>
     </div>
+    <div id="div_msg" style="display: none;"></div>
      <div class="campo_cadastro">
         <h2>FAZER <span>LOGIN</span></h2>
 
         <p>Nome do Usuário</p>
-        <input type="text" id="ipt_nome">
+        <input type="text" id="ipt_nome" placeholder="Seu Nome">
 
         <p>Senha</p>
-        <input type="password" id="ipt_senha"> 
+        <input type="password" id="ipt_senha"  placeholder="Senha" onkeyup="senha()"> 
+        <span class="verif_senha"><input type="checkbox" onclick="verSenha()">Ver Senha </span>
+
 
         <p>Verificar Senha</p>
-        <input type="password" id="ipt_verificarSenha">
+        <input type="password" id="ipt_verificarSenha"  placeholder="Verificar Senha" onkeyup="senha()">
+        <span class="verif_senha"> <input type="checkbox" onclick="verifSenha()">Ver Verificação</span>
 
-        <button>CADASTRAR</button>
+        <div id="div_resultado_senha"></div>
+        <button onclick="cadastrar()">CADASTRAR</button>
+
         <a href="../templates/loginPerfil.html" id="voltar">⬅️ Voltar</a>
     </div>
 </body>
 </html>
+<script>
+    function verSenha() {  // Usei o W3 Schools para pegar essa parte de ver a senha
+        let senha = document.getElementById("ipt_senha");
+        
+        if (senha.type === "password") {
+            senha.type = "text";
+        } else {
+            senha.type = "password";
+        }
+    }
+
+    function verifSenha() {
+        let verificar_senha = document.getElementById("ipt_verificarSenha");
+        
+        if (verificar_senha.type === "password") {
+            verificar_senha.type = "text";
+        } else {
+            verificar_senha.type = "password";
+        }
+    }
+    function senha() {
+        let senha = ipt_senha.value
+        let senhaCaracter = senha.length
+
+        if(senhaCaracter >= 8 && senha != senha.toLowerCase() && senha != senha.toUpperCase() && (senha.includes('#') ||  senha.includes('@') ||  senha.includes('!'))){
+           
+            div_resultado_senha.innerHTML = '<br> <span class = "senha_forte" style="color: rgb(1, 186, 1);">Senha Forte </span>'
+        
+        }else if((senhaCaracter >= 8 && senha != senha.toLowerCase()) || ( senha != senha.toLowerCase() && senha != senha.toUpperCase()) ||(senhaCaracter >= 8 && senha != senha.toUpperCase()) ){
+           
+            div_resultado_senha.innerHTML = '<br> <span class = "senha_media" style="color: yellow;">Senha Média </span>'
+        
+        }else if(senhaCaracter >= 8 || senha != senha.toLowerCase() || senha != senha.toUpperCase()){
+            
+            div_resultado_senha.innerHTML = '<br> <span class = "senha_fraca" style="color: red;">Senha Fraca </span>'
+        
+        }else{
+
+            div_resultado_senha.innerHTML = '<br>  <span class = "senha_insegura" style="color: red;">Senha Insegura </span>'
+        }
+    }
+
+    function cadastrar() {
+        let nome = ipt_nome.value
+        let senha = ipt_senha.value
+        let verificacao_senha = ipt_verificarSenha.value
+        div_msg.innerHTML = ``
+
+        if (nome != '' && (senha != '' && verificacao_senha != '')) {
+            if (senha == verificacao_senha) {
+                div_msg.style.display = 'block'
+                div_msg.innerHTML =`<span class= 'sucesso'>Cadastro feito com Sucesso!`
+            }else{
+                div_msg.innerHTML = `Verifique se a senha foi digitada corretamente!`
+            }   
+        }else{
+            div_msg.style.display = 'block'
+            div_msg.style.background = ' #fd0000b5'
+            div_msg.style.border = '1px solid white'
+            div_msg.innerHTML = `<span class= 'erro'>Insira as informações Corretamente!<span>`
+        }
+    }
+</script>

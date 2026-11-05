@@ -48,10 +48,10 @@ body{
 
 .campo_cadastro{
     display: flex;
-    height: 480px;
+    height: 580px;
     width: 460px;
     border-radius: 20px;
-    margin-top: 130px;
+    margin-top: 70px;
     margin-right: 160px;
     background-color: rgb(10, 10, 10);
     box-shadow: 
@@ -93,6 +93,25 @@ body{
     color: white;
 }
 
+.verif_senha { 
+    display: flex; 
+    align-items: center; 
+    gap: 8px;
+    font-family: var(--Fonte-Titulo); 
+    font-size: 14px; color: white; 
+    margin-top: 6px; margin-bottom: 12px; 
+    cursor: pointer; 
+} 
+
+.verif_senha input[type="checkbox"] { 
+    height: 16px; 
+    width: 16px; 
+    margin: 0; 
+    padding: 0; 
+    border: none; 
+    cursor: pointer; 
+}
+
 .campo_cadastro button{
     font-family: var(--Fonte-Titulo);
     margin-top: 30px;
@@ -102,6 +121,7 @@ body{
     font-size: 16px;
     font-weight: bolder;
 }
+
 
 .campo_cadastro .fazer_cadastro{
     margin-top: 30px;
@@ -115,6 +135,36 @@ body{
     text-underline-offset: 5px;
 }
 
+
+#div_resultado_senha{
+    font-size: 20px;
+    font-family: var(--Fonte-Titulo);
+    font-weight: 600;
+}
+
+#div_msg{
+    position: fixed;
+    z-index: 1;
+    width: 200px;
+    height: 50px;
+    margin-left: 86%;
+    text-align: center;
+    font-family: var(--Fonte-Titulo);
+    padding-top: 10px;
+    background-color:  rgb(10, 10, 10);
+    border: 1px solid #523d8b;
+}
+
+.erro{
+    color: white;
+    font-weight: bold;
+}
+
+.sucesso{
+    color: white;
+    font-weight: bold;
+}
+
 .campo_cadastro #voltar{
     font-family: var(--Fonte-Titulo);
     color: white;
@@ -125,4 +175,22 @@ body{
     border-radius: 25px;
     font-size: 16px;
     font-weight: bolder;
+}
+
+.senha_insegura, .senha_fraca{
+    border-bottom: #ff0000 2px solid;
+    padding-bottom: 5px;
+    border-width: 5px;
+}
+
+.senha_media{
+    border-bottom: yellow 2px solid;
+    padding-bottom: 5px;
+    border-width: 5px;
+}
+
+.senha_forte{
+    border-bottom: rgb(1, 186, 1) 2px solid;
+    padding-bottom: 5px;
+    border-width: 5px;
 }
