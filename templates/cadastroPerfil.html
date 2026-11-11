@@ -40,23 +40,26 @@
 </body>
 </html>
 <script>
+    let listaUsuarios = []
+    let listaSenhas = []
+
     function verSenha() {  // Usei o W3 Schools para pegar essa parte de ver a senha
-        let senha = document.getElementById("ipt_senha");
+        let senha = document.getElementById("ipt_senha")
         
         if (senha.type === "password") {
-            senha.type = "text";
+            senha.type = "text"
         } else {
-            senha.type = "password";
+            senha.type = "password"
         }
     }
 
     function verifSenha() {
-        let verificar_senha = document.getElementById("ipt_verificarSenha");
+        let verificar_senha = document.getElementById("ipt_verificarSenha")
         
         if (verificar_senha.type === "password") {
-            verificar_senha.type = "text";
+            verificar_senha.type = "text"
         } else {
-            verificar_senha.type = "password";
+            verificar_senha.type = "password"
         }
     }
     function senha() {
@@ -89,11 +92,30 @@
 
         if (nome != '' && (senha != '' && verificacao_senha != '')) {
             if (senha == verificacao_senha) {
-                div_msg.style.display = 'block'
-                div_msg.innerHTML =`<span class= 'sucesso'>Cadastro feito com Sucesso!`
-            }else{
-                div_msg.innerHTML = `Verifique se a senha foi digitada corretamente!`
-            }   
+
+                let Cadastrado = false 
+                for (let i = 0; i < listaUsuarios.length; i++){
+                    if (listaUsuarios[i].nome == nome) { 
+                        Cadastrado = true
+                    } 
+                }
+
+                if (Cadastrado ) {
+                    div_msg.style.display = 'block'
+                    div_msg.innerHTML = `<span class = "erro">Nome de usuário já cadastrado!</span>`
+                }else{
+                    div_msg.style.display = 'block'
+                    div_msg.innerHTML =`<span class= 'sucesso'>Cadastro feito com Sucesso!`
+                    listaUsuarios.push(nome)
+                    listaSenhas.push(senha)
+                }
+
+
+        }else{
+            div_msg.innerHTML = `Verifique se a senha e o nome foi digitada corretamente!`
+        }   
+
+
         }else{
             div_msg.style.display = 'block'
             div_msg.style.background = ' #fd0000b5'

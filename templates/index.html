@@ -10,164 +10,698 @@
 <body>
 
     <!-- Navegação -->
-    <div class="nav">
-        <span></span>
-        <input type="checkbox" id="active">
-        <label for="active" class="menu-btn"><span></span></label>
-        <label for="active" class="close"></label>
-        <div class="opcoes">
-            <ul>
-                <li><a href="#" id="btn-home">Home</a></li>
-                <li><a href="#" id="btn-library">Library</a></li>
-                <li><a href="#" id="btn-profile">Profile</a></li>
-                <li><a href="#" id="btn-reviews">Reviews</a></li>
-            </ul>
-        </div>
+    <header id="header">
+        
+        <div class="logo img"><img src="../img/logo.png" alt="Logo"></div>
+        
+        <div class="menu-direito">
+            <nav>
+                
+                <a href="#secao1">Inicio</a>
+                <a href="#secao2">Sobre Mim</a>
+                <a href="#secao3">Marcantes</a>
+                <a href="#secao4">Mini Game</a>
+                <a href="#secao5">Músicas</a>
+            </nav>
+            
+           <div class="conta">
+                <svg xmlns="http://www.w3.org/2000/svg" width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="11.5"></circle>
+                    <circle cx="12" cy="8" r="4"></circle>
+                    <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
+                </svg>
+                <a href="../templates/loginPerfil.html" id="login">Entrar</a>
+            </div>
 
-        <div class="conta">
-            <svg xmlns="http://www.w3.org/2000/svg" width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="12" cy="12" r="11.5"></circle>
-                <circle cx="12" cy="8" r="4"></circle>
-                <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path>
-            </svg>
-            <a href="../templates/loginPerfil.html" id="login">Entrar</a>
         </div>
-    </div>
+    </header>
 
     <div class="line"></div>
     
     <!-- Conteúdo da Página Principal (Home) -->
     <div class="content">
-        <div class="home" id="home">
+        <section  class="home" id="secao1">
+            <h1 class="Titulo">Aaaa</h1>
+        </section>
 
-            <p> <a href="#" id="forYou" class="active">For you</a> <a href="#" id="featured">Featured</a> </p>
-            <div class="line2"></div>
+        <section class="SobreMim" id="secao2">
+            <h1>Por Que FIFA?</h1>
+            <div class="imagem"></div>
+        </section>
 
-            <div class="postagem" id="feed-post">
-                <img src="../static/assets/perfil_padrao.png" alt="">
-                <p class="name_usuario">Nome</p>
-                <h2 class="titulo_postagem">Titulo do post</h2>
-                <p class="texto_postagem">Texto</p>
+        <section class="Cartas" id="secao3">
+            <h1>Cartas Marcantes</h1>
+            <p class="descricao">Algumas Cartas que fizeram história no meu Clube!</p>
 
-                <div class="reacoes">
-                    <svg id="coracao" class="save-icon2" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/>
-                    </svg>
+            <div class="carrossel">
 
-                    <div class="postSalvo">
-                        <svg id="Icone" class="save-icon" xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M19 21l-7-4-7 4V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16z" />
-                            <g class="grupoAdicionado">
-                                <circle cx="18" cy="18" r="4" fill="inherit" />
-                                <path d="M18 17v2M17 18h2" stroke-width="1.2" fill="none" />
-                            </g>
-                        </svg>
+            </div>
+        </section>
 
-                        <div id="messagemSalva" class="MensagemSalva">
-                            Essa postagem foi para os seus <a href="#">favoritos</a> !
+        <section class="MiniGame" id="secao4">
+            <h1>Mini Game Sobre FIFA</h1>
+            <p class="descricao">Vamos ver se você realmente gosta de FIFA!</p>
+
+            <div>
+
+                <div id="pontuacaoEJogo">
+                    <button id="btnIniciarQuiz" onclick="iniciarQuiz()">INICIAR QUIZ</button>
+
+                    <div id="pontuacao" class="flex-colunar width-fit-content border-primary">
+                        <h2>Resultado</h2>
+                        <div id="pontuacaoDuranteJogo" class="flex-colunar padding-8">
+                            <span class="width-fit-content">Acertos: <span id="spanCertas"></span></span>
+                            <span class="width-fit-content">Erros: <span id="spanErradas"></span></span>
+                        </div>
+                        <div id="pontuacaoFinalJogo" class="flex-colunar padding-8">
+                            <span id="pontuacaoFinal" class="width-fit-content">Pontuação Final:
+                                <span id="spanPontuacaoFinal">***</span>
+                            </span>
+                            <span id="msgFinal" class="width-fit-content">***</span>
+                        </div>
+                    </div>
+
+                    <div id="jogo" class="width-fit-content flex-colunar border-secondary">
+
+                        <div id="infoQuestao" class="padding-8">
+                            <span>Questão atual: <span id="spanNumeroDaQuestaoAtual"></span> de <span id="qtdQuestoes"></span>
+                                questões.</span>
+                        </div>
+
+                        <div class="barra-progresso" id="barraProgresso">
+                            <div class="barra-progresso-preenchimento" id="barraProgressoPreenchimento"></div>
+                        </div>
+
+                        <div id="perguntaDaQuestaoAtual" class="padding-8">
+                            <span id="spanQuestaoExibida" class="text-bold"></span>
+                        </div>
+
+                        <div id="infoAlternativas" class="padding-8">
+                            <span><em>Escolha uma opção dentre as abaixo:</em></span>
+                        </div>
+
+                        <div id="opcoes" class="flex-colunar padding-8 text-bold font-size">
+                            <label class="opcao" id="labelOpcaoUm">
+                                <input type="radio" id="primeiraOpcao" name="option" class="radio" value="alternativaA">
+                                <span id="textoOpcaoUm"></span>
+                            </label>
+                            <label class="opcao" id="labelOpcaoDois">
+                                <input type="radio" id="segundaOpcao" name="option" class="radio" value="alternativaB">
+                                <span id="textoOpcaoDois"></span>
+                            </label>
+                            <label class="opcao" id="labelOpcaoTres">
+                                <input type="radio" id="terceiraOpcao" name="option" class="radio" value="alternativaC">
+                                <span id="textoOpcaoTres"></span>
+                            </label>
+                            <label class="opcao" id="labelOpcaoQuatro">
+                                <input type="radio" id="quartaOpcao" name="option" class="radio" value="alternativaD">
+                                <span id="textoOpcaoQuatro"></span>
+                            </label>
+                        </div>
+
+                        <div id="botoes" class="flex-colunar padding-8">
+                            <button onclick="submeter()" id="btnSubmeter" class="text-bold font-size botao">Confirmar Resposta</button>
+                            <button onclick="avancar()" id="btnProx"  class="text-bold font-size botao">Próxima questão</button>
+                            <!-- <button onclick="finalizar()" id="btnConcluir" disabled>Finalizar Quiz</button> -->
+                            <button onclick="tentarNovamente()" class="text-bold font-size botao" id="btnTentarNovamente">Tentar novamente</button>
+                        </div>
+
+                    </div>
+                </div>
+            </body>
+
+        </section>
+
+        <section id="secao5">
+            <h1>Minhas Músicas Favoritas do FIFA</h1>
+            <h2>Esse é o meu Top 7 Músicas do FIFA!</h2>
+
+            <div class="Musicas">
+                <div class="podio">
+                    <p class="segundoLugar">
+                        <span id="nomeMusica">Kuzola</span>
+                        2º Lugar
+                    </p>
+                    
+                    <p class="primeiroLugar">
+                        <span id="nomeMusica">Kuzola</span>
+                        1º Lugar
+
+                    </p>
+                    
+                    <p class="terceiroLugar">
+                        <span id="nomeMusica">Kuzola</span>
+                        3º Lugar
+
+                    </p>
+                </div>
+                <div class="top7">
+                    <div class="posicao">
+                        <p>4º Lugar</p>
+
+                        <div class="musica">
+                            <span>13</span>
+                            <div class="titulo-musica">
+                                <strong>Kuzola</strong>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="posicao">
+                        <p>5º Lugar</p>
+
+                        <div class="musica">
+                            <span>13</span>
+                            <div class="titulo-musica">
+                                <strong>Kuzola</strong>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="posicao">
+                        <p>6º Lugar</p>
+
+                        <div class="musica">
+                            <span>13</span>
+                            <div class="titulo-musica">
+                                <strong>Kuzola</strong>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="posicao">
+                        <p>7º Lugar</p>
+                    
+                        <div class="musica">
+                            <span>13</span>
+                            <div class="titulo-musica">
+                                <strong>Kuzola</strong>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <h2 class="montar-top10">Quer tentar? Monte o seu Top 7!</h2>
+            <button onclick="" id="bnt-top10">Montar Meu Top 7</button>
+            <div class="Musicas">
+               <div class="podio">
+                    <p class="segundoLugar">2º Lugar</p>
+                    <p class="primeiroLugar">1º Lugar</p>
+                    <p class="terceiroLugar">3º Lugar</p>
+                </div>
+                <div class="top7">
+                     <div class="posicao">
+                        <p>4º Lugar</p>
+
+                        <div class="musica">
+                            <span></span>
+                            <div class="titulo-musica">
+                                <strong></strong>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="posicao">
+                        <p>5º Lugar</p>
+
+                        <div class="musica">
+                            <span></span>
+                            <div class="titulo-musica">
+                                <strong></strong>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="posicao">
+                        <p>6º Lugar</p>
+
+                        <div class="musica">
+                            <span></span>
+                            <div class="titulo-musica">
+                                <strong></strong>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="posicao">
+                        <p>7º Lugar</p>
+                    
+                        <div class="musica">
+                            <span></span>
+                            <div class="titulo-musica">
+                                <strong></strong>
+                            </div>
                         </div>
                     </div>
                 </div>
-                
-                <span class="data_post">28/01/2026</span>
+            </div>
+            
+            <div class="playlist">
+                <div class="playlist-header">
+
+                    <div class="informacoes">
+                        <h1>Playlist de FIFA</h1>
+                    </div>
+
+                </div>
+
+                <!-- Lista de músicas -->
+                <div class="musicas">
+                    <div class="cabecalho-musicas"></div>
+                    <div class="musica">
+                        <span>1</span>
+                        <div class="titulo-musica">
+                            <strong>Flicker of Light</strong>
+                            <audio controls src="../static/assets/Flicker of Light.mp3"></audio>
+                        </div>
+                        
+                    </div>
+
+                    <div class="musica">
+                        <span>2</span>
+                        <div class="titulo-musica">
+                            <strong>Hayya Hayya</strong>
+                            <audio controls src="../static/assets/Hayya Hayya.mp3"></audio>
+                        </div>
+                        
+                    </div>
+
+                    <div class="musica">
+                        <span>3</span>
+                        <div class="titulo-musica">
+                            <strong>Jerk It Out</strong>
+                            <audio controls src="../static/assets/Jerk It Out.mp3"></audio>
+                        </div>
+                        
+                    </div>
+
+                    <div class="musica">
+                        <span>4</span>
+                        <div class="titulo-musica">
+                            <strong>Kids</strong>
+                            <audio controls src="../static/assets/Kids.mp3"></audio>
+                        </div>
+                         
+                    </div>
+
+                    <div class="musica">
+                        <span>5</span>
+                        <div class="titulo-musica">
+                            <strong>Levanta e Anda</strong>
+                            <audio controls src="../static/assets/Levanta e anda.mp3"></audio>
+                        </div>
+                        
+                    </div>
+
+                    <div class="musica">
+                        <span>6</span>
+                        <div class="titulo-musica">
+                            <strong>My Type</strong>
+                            <audio controls src="../static/assets/My Type.mp3"></audio>
+                        </div>
+                        
+                    </div>
+
+                    <div class="musica">
+                        <span>7</span>
+                        <div class="titulo-musica">
+                            <strong>SOFY</strong>
+                            <audio controls src="../static/assets/SOFY .mp3"></audio>
+                        </div>
+                         
+                    </div>
+
+                    <div class="musica">
+                        <span>8</span>
+                        <div class="titulo-musica">
+                            <strong>The Nights</strong>
+                            <audio controls src="../static/assets/The Nights.mp3"></audio>
+                        </div>
+                        
+                    </div>
+
+                    <div class="musica">
+                        <span>9</span>
+                        <div class="titulo-musica">
+                            <strong>Way Down We Go</strong>
+                            <audio controls src="../static/assets/Way Down We Go.mp3"></audio>
+                        </div>
+                        
+                    </div>
+
+                    <div class="musica">
+                        <span>10</span>
+                        <div class="titulo-musica">
+                            <strong>Yo x Ti, Tu x Mi</strong>
+                            <audio controls src="../static/assets/Yo x Ti, Tu x Mi.mp3"></audio>
+                        </div>
+                        
+                    </div>
+
+                    <div class="musica">
+                        <span>11</span>
+                        <div class="titulo-musica">
+                            <strong>Genius</strong>
+                            <audio controls src="https://www.youtube.com/watch?v=HhoATZ1Imtw&list=RDHhoATZ1Imtw&start_radio=1"></audio>
+                        </div>
+                        
+                    </div>
+
+                    <div class="musica">
+                        <span>12</span>
+                        <div class="titulo-musica">
+                            <strong>Feet Don´T Fall Me Now</strong>
+                            <audio controls src="https://www.youtube.com/watchv=xLFCcnYSCyE&list=RDxLFCcnYSCyE&start_radio=1"></audio>
+                        </div>
+                        
+                    </div>
+
+                    <div class="musica">
+                        <span>13</span>
+                        <div class="titulo-musica">
+                            <strong>Kuzola</strong>
+                            <audio controls src="https://www.youtube.com/watchv=xLFCcnYSCyE&list=RDxLFCcnYSCyE&start_radio=1"></audio>
+                        </div>
+                        
+                    </div>
+
+                    <div class="musica">
+                        <span>14</span>
+                        <div class="titulo-musica">
+                            <strong>Levanta e Anda</strong>
+                            <audio controls src="../static/assets/Levanta e anda.mp3"></audio>
+                        </div>
+                        
+                    </div>
+                </div>
+
             </div>
 
-            <div class="feed-posts2" id="post-featured" style="display: none;">
-                <h2>teste</h2>
-            </div>
-
-        </div>
-
-        <section class="library" id="library">
-
-        </section>
-
-        <section class="profile" id="profile">
-
-        </section>
-
-        <section class="reviews" id="reviews">
 
         </section>
     </div>
     <script>
-        let forYou = document.getElementById('forYou')
-        let apresentou = document.getElementById('post-featured');
-        let featured = document.getElementById('featured');
-        let postagem = document.getElementById('feed-post');
-
-        let home = document.getElementById('home');
-        let library = document.getElementById('library');
-        let profile = document.getElementById('profile');
-        let reviews = document.getElementById('reviews');
-
-        let btn_home = document.getElementById('btn-home');
-        let btn_library = document.getElementById('btn-library');
-        let btn_profile = document.getElementById('btn-profile');
-        let btn_reviews = document.getElementById('btn-reviews');
-
-        // Home
-        btn_home.addEventListener('click', function(e) {
-            e.preventDefault();
-
-            home.style.display = 'block';
-            library.style.display = 'none';
-            profile.style.display = 'none';
-            reviews.style.display = 'none';
-        });
-
-        // Library
-        btn_library.addEventListener('click', function(e) {
-            e.preventDefault();
-
-            home.style.display = 'none';
-            library.style.display = 'block';
-            profile.style.display = 'none';
-            reviews.style.display = 'none';
-        });
-
-        // Profile
-        btn_profile.addEventListener('click', function(e) {
-            e.preventDefault();
-
-            home.style.display = 'none';
-            library.style.display = 'none';
-            profile.style.display = 'block';
-            reviews.style.display = 'none';
-        });
-
-        // Reviews
-        btn_reviews.addEventListener('click', function(e) {
-            e.preventDefault();
-
-            home.style.display = 'none';
-            library.style.display = 'none';
-            profile.style.display = 'none';
-            reviews.style.display = 'block';
-        });
-
-
-
-            forYou.addEventListener('click', function(e) {
-                e.preventDefault();
-                forYou.classList.add('active');
-                featured.classList.remove('active');
-
-                postagem.style.display = 'block';
-                apresentou.style.display = 'none';
-            });
-
-            featured.addEventListener('click', function(e) {
-                e.preventDefault();
-                featured.classList.add('active');
-                forYou.classList.remove('active');
-                
-
-                postagem.style.display = 'none';
-                apresentou.style.display = 'block';
-            });
 
 
     </script>
 </body>
 </html>
+<script>
+      const listaDeQuestoes = [
+
+        {
+            pergunta: "Quem era a capa do FIFA 15?",
+            alternativaA: "Cristiano Ronaldo",
+            alternativaB: "Lionel Messi",
+            alternativaC: "Neymar",
+            alternativaD: "Reus",
+            alternativaCorreta: "alternativaB"
+        },
+
+        {
+            pergunta: "Em qual FIFA o modo Ultimate Team estreou?",
+            alternativaA: "FIFA 07",
+            alternativaB: "FIFA 09",
+            alternativaC: "FIFA 11",
+            alternativaD: "FIFA 13",
+            alternativaCorreta: "alternativaB"
+        },
+
+        {
+            pergunta: "Em qual FIFA o modo Carreira estreou?",
+            alternativaA: "FIFA 15",
+            alternativaB: "FIFA 17",
+            alternativaC: "FIFA 19",
+            alternativaD: "FIFA 21",
+            alternativaCorreta: "alternativaB"
+        },
+
+        {
+            pergunta: "Quem foi o trio de Estrelas no FIFA 19?",
+            alternativaA: "Neymar | DyBala | Kevin De Bruyne",
+            alternativaB: "Neymar | Cristiano Ronaldo | Messi",
+            alternativaC: "Mbappe | DyBala | Kevin De Bruyne",
+            alternativaD: "Kevin De Bruyne | Reus | Cristiano Ronaldo",
+            alternativaCorreta: "alternativaA"
+        },
+
+        {
+            pergunta: "Qual foi o primeiro jogo depois que a série virou EA Sports FC?",
+            alternativaA: "FC 23",
+            alternativaB: "FC 24",
+            alternativaC: "FC 25",
+            alternativaD: "FC 22",
+            alternativaCorreta: "alternativaB"
+        },
+
+        {
+            pergunta: "Qual música de Avicii fez sucesso na trilha do FIFA 15?",
+            alternativaA: "Levels",
+            alternativaB: "Wake Me Up ",
+            alternativaC: "The Nights",
+            alternativaD: "Hey Brother",
+            alternativaCorreta: "alternativaC"
+        },
+
+        {
+            pergunta: "O que significa 'POTM' no Ultimate Team?",
+            alternativaA: "Player Of The Month",
+            alternativaB: "Player Of The Match ",
+            alternativaC: "Poyer Of The Team",
+            alternativaD: "Pick Of The Month",
+            alternativaCorreta: "alternativaA"
+        },
+
+        {
+            pergunta: "Em qual FIFA a tecnologia Hypermotion estreou?",
+            alternativaA: "FIFA 20",
+            alternativaB: "FIFA 21 ",
+            alternativaC: "FIFA 22",
+            alternativaD: "FIFA 23",
+            alternativaCorreta: "alternativaC"
+        },
+
+        {
+            pergunta: "Em qual FIFA o modo CLUBS?",
+            alternativaA: "FIFA 09",
+            alternativaB: "FIFA 11 ",
+            alternativaC: "FIFA 15",
+            alternativaD: "FIFA 20",
+            alternativaCorreta: "alternativaA"
+        },
+
+        {
+            pergunta: "Quem foi o capa do FIFA 17 ?",
+            alternativaA: "Marco Reus",
+            alternativaB: "James Rodrigues",
+            alternativaC: "Cristiano Ronaldo",
+            alternativaD: "Neymar",
+            alternativaCorreta: "alternativaA"
+        },
+
+
+
+
+    ]
+
+    // variáveis globais    
+    let numeroDaQuestaoAtual = 0
+    let pontuacaoFinal = 0
+    let tentativaIncorreta = 0
+    let certas = 0
+    let erradas = 0
+    let quantidadeDeQuestoes = listaDeQuestoes.length
+    // let isUltima = numeroDaQuestaoAtual == quantidadeDeQuestoes-1 ? true : false
+
+    function onloadEsconder() {
+        document.getElementById('pontuacao').style.display = "none"
+        document.getElementById('jogo').style.display = "none"
+    }
+
+    function iniciarQuiz() {
+        document.getElementById('pontuacao').style.display = "none"
+        document.getElementById('jogo').style.display = "flex"
+        document.getElementById('btnIniciarQuiz').style.display = "none"
+
+        document.getElementById('qtdQuestoes').innerHTML = quantidadeDeQuestoes
+
+        preencherHTMLcomQuestaoAtual(0)
+        atualizarBarraProgresso(0)
+
+        mostrarSomenteBotao("btnSubmeter")
+        // btnConcluir.disabled = true
+    }
+
+    function preencherHTMLcomQuestaoAtual(index) {
+        habilitarAlternativas(true)
+        const questaoAtual = listaDeQuestoes[index]
+        numeroDaQuestaoAtual = index
+        console.log("questaoAtual")
+        console.log(questaoAtual)
+        document.getElementById("spanNumeroDaQuestaoAtual").innerHTML = Number(index) + 1 // ajustando porque o index começa em 0
+        document.getElementById("spanQuestaoExibida").textContent = questaoAtual.pergunta
+        document.getElementById("textoOpcaoUm").textContent = questaoAtual.alternativaA
+        document.getElementById("textoOpcaoDois").textContent = questaoAtual.alternativaB
+        document.getElementById("textoOpcaoTres").textContent = questaoAtual.alternativaC
+        document.getElementById("textoOpcaoQuatro").textContent = questaoAtual.alternativaD
+    }
+
+    function submeter() {
+        const options = document.getElementsByName("option"); // recupera alternativas no html
+
+        let hasChecked = false
+        for (let i = 0; i < options.length; i++) {
+            if (options[i].checked) {
+                hasChecked = true
+                break
+            }
+        }
+
+        if (!hasChecked) {
+            alert("Não há alternativas escolhidas. Escolha uma opção.")
+        } else {
+            mostrarSomenteBotao("btnProx")
+
+            habilitarAlternativas(false)
+
+            checarResposta()
+        }
+    }
+    
+    function mostrarSomenteBotao(idBotao) {
+        ["btnSubmeter", "btnProx", "btnTentarNovamente"].forEach((id) => {
+            document.getElementById(id).style.display = (id === idBotao) ? "" : "none"
+        })
+    }
+
+    function habilitarAlternativas(trueOrFalse) {
+        let opcaoEscolhida = trueOrFalse ? false : true
+
+        primeiraOpcao.disabled = opcaoEscolhida
+        segundaOpcao.disabled = opcaoEscolhida
+        terceiraOpcao.disabled = opcaoEscolhida
+        quartaOpcao.disabled = opcaoEscolhida
+
+    }
+
+    function avancar() {
+        mostrarSomenteBotao("btnSubmeter")
+
+        desmarcarRadioButtons()
+
+        if (numeroDaQuestaoAtual < quantidadeDeQuestoes - 1) {
+            preencherHTMLcomQuestaoAtual(numeroDaQuestaoAtual)
+        } else if (numeroDaQuestaoAtual == quantidadeDeQuestoes - 1) {
+            alert("Atenção... a próxima é a ultima questão!")
+            preencherHTMLcomQuestaoAtual(numeroDaQuestaoAtual)
+        } else {
+            finalizarJogo()
+        }
+        limparCoresBackgroundOpcoes()
+    }
+
+    function tentarNovamente() {
+        // atualiza a página
+        window.location.reload()
+    }
+
+    function checarResposta() {
+        const questaoAtual = listaDeQuestoes[numeroDaQuestaoAtual] // questão atual 
+        const respostaQuestaoAtual = questaoAtual.alternativaCorreta // qual é a resposta correta da questão atual
+
+        const options = document.getElementsByName("option"); // recupera alternativas no html
+
+        let alternativaCorreta = null // variável para armazenar a alternativa correta
+
+        options.forEach((option) => {
+            if (option.value === respostaQuestaoAtual) {
+                console.log("alternativaCorreta está no componente: " + alternativaCorreta)
+                alternativaCorreta = option.labels[0].id
+            }
+        })
+
+        // verifica se resposta assinalada é correta
+        options.forEach((option) => {
+            if (option.checked === true && option.value === respostaQuestaoAtual) {
+                document.getElementById(alternativaCorreta).classList.add("text-success-with-bg")
+                pontuacaoFinal++
+                certas++
+                document.getElementById("spanCertas").innerHTML = certas
+                numeroDaQuestaoAtual++
+            } else if (option.checked && option.value !== respostaQuestaoAtual) {
+                const wrongLabelId = option.labels[0].id
+
+                document.getElementById(wrongLabelId).classList.add("text-danger-with-bg")
+                document.getElementById(alternativaCorreta).classList.add("text-success-with-bg")
+                tentativaIncorreta++
+                erradas++
+                document.getElementById("spanErradas").innerHTML = erradas
+                numeroDaQuestaoAtual++
+            }
+        })
+
+        atualizarBarraProgresso(certas + erradas)
+    }
+
+    function limparCoresBackgroundOpcoes() {
+        const options = document.getElementsByName("option");
+        options.forEach((option) => {
+            document.getElementById(option.labels[0].id).classList.remove("text-danger-with-bg")
+            document.getElementById(option.labels[0].id).classList.remove("text-success-with-bg")
+        })
+    }
+
+    function desmarcarRadioButtons() {
+        const options = document.getElementsByName("option");
+        for (let i = 0; i < options.length; i++) {
+            options[i].checked = false;
+        }
+    }
+    
+    function atualizarBarraProgresso(respondidas) {
+        const porcentagem = (respondidas / quantidadeDeQuestoes) * 100
+        document.getElementById("barraProgressoPreenchimento").style.width = porcentagem + "%"
+    }
+
+    // Mensagens ao finalizar o Jogo
+    function finalizarJogo() {
+        let textoParaMensagemFinal = null
+        let classComCoresParaMensagemFinal = null
+        const porcentagemFinalDeAcertos = pontuacaoFinal / quantidadeDeQuestoes
+
+        if (porcentagemFinalDeAcertos <= 0.3) {
+            textoParaMensagemFinal = "Parece que você não estudou..."
+            classComCoresParaMensagemFinal = "text-danger-with-bg"
+        }
+        else if (porcentagemFinalDeAcertos > 0.3 && porcentagemFinalDeAcertos < 0.9) {
+            textoParaMensagemFinal = "Pode melhorar na próxima, hein!"
+            classComCoresParaMensagemFinal = "text-warning-with-bg"
+        }
+        else if (porcentagemFinalDeAcertos >= 0.9) {
+            textoParaMensagemFinal = "Uau, parabéns!"
+            classComCoresParaMensagemFinal = "text-success-with-bg"
+        }
+
+        textoParaMensagemFinal += "<br> Você acertou " + Math.round((porcentagemFinalDeAcertos)*100) + "% das questões."
+
+        document.getElementById('pontuacao').style.display = "block"
+        document.getElementById('infoQuestao').style.display = "none"
+        document.getElementById('barraProgresso').style.display = "none"
+        document.getElementById('infoAlternativas').style.display = "none"
+        document.getElementById('perguntaDaQuestaoAtual').style.display = "none"
+        document.getElementById('opcoes').style.display = "none"
+        document.getElementById('msgFinal').innerHTML = textoParaMensagemFinal
+        document.getElementById('msgFinal').classList.add(classComCoresParaMensagemFinal) 
+        document.getElementById('spanPontuacaoFinal').innerHTML = pontuacaoFinal
+
+        document.getElementById('jogo').classList.add("text-new-gray") 
+
+        mostrarSomenteBotao("btnTentarNovamente")
+        // btnConcluir.disabled = true
+        
+
+    }
+    document.addEventListener("DOMContentLoaded", onloadEsconder)
+</script>
