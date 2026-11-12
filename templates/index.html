@@ -133,7 +133,7 @@
         </section>
 
         <section id="secao5">
-            <h1>Minhas Músicas Favoritas do FIFA</h1>
+            <h1 class="h1-musicas">Minhas Músicas Favoritas do FIFA</h1>
             <h2>Esse é o meu Top 7 Músicas do FIFA!</h2>
 
             <div class="Musicas">
@@ -204,17 +204,64 @@
             </div>
 
             <h2 class="montar-top10">Quer tentar? Monte o seu Top 7!</h2>
-            <button onclick="" id="bnt-top10">Montar Meu Top 7</button>
+           <button onclick="montar()" id="btn-montar">
+                Montar Top 7
+            </button>
+
+            <!-- Fundo embaçado -->
+            <div class="overlay-top7" id="overlay-top7"></div>
+
+            <!-- Formulário Top 7 -->
+            <div class="montar-Top7" id="montar-Top7">
+
+                <h2>Montar Meu Top 7!</h2>
+
+                <!-- Músicas Escolhidas -->
+
+                <label>Música Top 1ª</label><br>
+                <input type="text" id="ipt_music_top1" placeholder="Sua Música Favorita!"><br><br>
+
+                <label>Música Top 2ª</label><br>
+                <input type="text" id="ipt_music_top2" placeholder="2ª Música"><br><br>
+
+                <label>Música Top 3ª</label><br>
+                <input type="text" id="ipt_music_top3" placeholder="3ª Música"><br><br>
+
+                <label>Música Top 4ª</label><br>
+                <input type="text" id="ipt_music_top4" placeholder="4ª Música"><br><br>
+
+                <label>Música Top 5ª</label><br>
+                <input type="text" id="ipt_music_top5" placeholder="5ª Música"><br><br>
+
+                <label>Música Top 6ª</label><br>
+                <input type="text" id="ipt_music_top6" placeholder="6ª Música"><br><br>
+
+                <label>Música Top 7ª</label><br>
+                <input type="text" id="ipt_music_top7" placeholder="7ª Música"><br><br>
+
+                <button onclick="top7()">Montar Meu Top 7</button>
+                <button onclick="voltar()">⬅️ Voltar</button>
+
+            </div>
             <div class="Musicas">
-               <div class="podio">
-                    <p class="segundoLugar">2º Lugar</p>
-                    <p class="primeiroLugar">1º Lugar</p>
-                    <p class="terceiroLugar">3º Lugar</p>
-                </div>
-                <div class="top7">
-                     <div class="posicao">
+                <div id="podioUsuario">
+                    <div class="podio">
+                        <p class="segundoLugar">
+                            <span class="nomeMusica"></span>
+                            2º Lugar
+                        </p>
+                        <p class="primeiroLugar">
+                            <span class="nomeMusica"></span>
+                            1º Lugar
+                        </p>
+                        <p class="terceiroLugar">
+                            <span class="nomeMusica"></span>
+                            3º Lugar
+                        </p>
+                    </div>
+                    <div class="top7">
+                        <div class="posicao">
                         <p>4º Lugar</p>
-
                         <div class="musica">
                             <span></span>
                             <div class="titulo-musica">
@@ -223,35 +270,33 @@
                         </div>
                     </div>
 
-                    <div class="posicao">
-                        <p>5º Lugar</p>
-
-                        <div class="musica">
-                            <span></span>
-                            <div class="titulo-musica">
-                                <strong></strong>
+                        <div class="posicao">
+                            <p>5º Lugar</p>
+                            <div class="musica">
+                                <span></span>
+                                <div class="titulo-musica">
+                                    <strong></strong>
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                    <div class="posicao">
-                        <p>6º Lugar</p>
-
-                        <div class="musica">
-                            <span></span>
-                            <div class="titulo-musica">
-                                <strong></strong>
+                        <div class="posicao">
+                            <p>6º Lugar</p>
+                            <div class="musica">
+                                <span></span>
+                                <div class="titulo-musica">
+                                    <strong></strong>
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                    <div class="posicao">
-                        <p>7º Lugar</p>
-                    
-                        <div class="musica">
-                            <span></span>
-                            <div class="titulo-musica">
-                                <strong></strong>
+                        <div class="posicao">
+                            <p>7º Lugar</p>
+                            <div class="musica">
+                                <span></span>
+                                <div class="titulo-musica">
+                                    <strong></strong>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -704,4 +749,58 @@
 
     }
     document.addEventListener("DOMContentLoaded", onloadEsconder)
+
+    function montar() {
+        document.getElementById("overlay-top7").style.display = "block";
+
+        document.getElementById("montar-Top7").style.display = "block";
+
+    }
+
+    function voltar() {
+        document.getElementById("overlay-top7").style.display = "none";
+
+        document.getElementById("montar-Top7").style.display = "none";
+    }
+
+    function top7() {
+        const musicas = []
+        // Atribuir um indicador para cada música
+        for (let i = 1; i <= 7; i++) {
+            const valor = document.getElementById("ipt_music_top" + i).value.trim();
+            musicas.push(valor)
+            
+        }
+
+        // Verificar se a pessoa Cadastrou as 7 Músicas
+        if (musicas.includes("")) {
+            alert('Preencha as 7 músicas para poder montar o seu pódio')
+            return
+        }
+
+        // Montando o pódio com base nas informações que são cadastradas com base nas escolhas
+        // do usuário
+        const podio = document.querySelector("#podioUsuario .podio")
+        podio.querySelector(".primeiroLugar .nomeMusica").textContent = musicas[0]
+        podio.querySelector(".segundoLugar .nomeMusica").textContent = musicas[1]
+        podio.querySelector(".terceiroLugar .nomeMusica").textContent = musicas[2]
+
+        // Montar do 4º ao 7º colocado
+        const posicoes = document.querySelectorAll("#podioUsuario .top7 .posicao");
+        posicoes[0].querySelector("strong").textContent = musicas[3]; // 4º lugar
+        posicoes[1].querySelector("strong").textContent = musicas[4]; // 5º lugar
+        posicoes[2].querySelector("strong").textContent = musicas[5]; // 6º lugar
+        posicoes[3].querySelector("strong").textContent = musicas[6]; // 7º Lugar
+
+
+        alert('Cadastro feito com Sucesso!')
+        voltar()
+        document.getElementById('podioUsuario').style.display = 'block'
+
+        function onloadEsconder() {
+            document.getElementById('pontuacao').style.display = "none"
+            document.getElementById('jogo').style.display = "none"
+            document.getElementById('podioUsuario').style.display = "none"
+        }
+    }
 </script>
