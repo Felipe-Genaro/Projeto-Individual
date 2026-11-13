@@ -1,0 +1,523 @@
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter', sans-serif;
+}
+:root{
+    --primary-brand-color: #ED145B;
+    --success: #19875465;
+    --success-dark: #095c36;
+    --success-light: #9dd3ba6d;
+    --warning: #ffc107;
+    --warning-dark: #705400;
+    --warning-light: #fdebb3;
+    --danger: #dc3545;
+    --danger-dark: #990c19;
+    --danger-light: #f0c1c6;
+    --new-gray: #CCCCCC;
+    --new-black: #212427;
+    --new-white: #E8E8E8;
+}
+
+body {
+    background-color: #000;
+    color: white;
+}
+
+html {
+    scroll-behavior: smooth !important;
+}
+
+#header {
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    z-index: 1000;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 15px 40px;
+    box-sizing: border-box;
+    background-color: rgba(0, 0, 0, 0.464) ;
+}
+
+
+
+.logo img {
+    width: 120px;
+    height: auto;
+    display: block;
+}
+
+
+.menu-direito {
+    display: flex;
+    align-items: center;
+    gap: 35px;
+}
+
+
+nav {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+    margin-right: 40px;
+}
+
+nav a {
+    text-decoration: none;
+    color:  #e0a237;
+    font-weight: bold;
+}
+
+/* ÁREA DA CONTA */
+.conta {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.conta a {
+    text-decoration: none;
+    color:  #e0a237;
+    font-weight: bold;
+}
+
+#secao1 {
+    background-image: url("../assets/imgs/FC27 Ultimate Edition Celebration.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    width: 100%;
+    height: 780px;
+
+    position: relative;
+
+    mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 70%, rgba(0,0,0,0) 100%);
+    -webkit-mask-image: linear-gradient(to bottom, rgba(0,0,0,1) 70%, rgba(0,0,0,0) 100%);
+}
+
+.Titulo {
+    color: white;
+
+    position: absolute;
+    top: 150px;
+    left: 110px;
+}
+
+#secao2, #secao3, #secao4, #secao5{
+    height: 900px;
+}
+
+#secao2 {
+    color: white;
+}
+
+.imagem{
+     background-image: url("../assets/imgs/fc-25-capa.png");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    width: 40%;
+    height: 110%;
+
+    position: absolute;
+    right: 0;
+
+    mask-image: linear-gradient(
+        to left,
+        rgba(0,0,0,1) 70%,
+        rgba(0,0,0,0) 100%
+    );
+
+    -webkit-mask-image: linear-gradient(
+        to left,
+        rgba(0,0,0,1) 70%,
+        rgba(0,0,0,0) 100%
+    );
+}
+
+
+.Cartas h1{
+    font-size: 50px;
+    text-align: center;
+    color: #b8862e;
+}
+.Cartas .descricao{
+    font-size: 30px;
+    margin-top: 20px;
+    text-align: center;
+    color: #c9a971;
+}
+
+
+/*//////////////////////    MINI GAME      /////////////////////*/
+.MiniGame h1{
+    font-size: 50px;
+    text-align: center;
+    color: #b8862e;
+}
+.MiniGame .descricao{
+    font-size: 30px;
+    margin-top: 20px;
+    text-align: center;
+    color: #c9a971;
+}
+
+#pontuacaoEJogo{
+    margin-left: 26%;
+    margin-top: 2%;
+}
+
+#pontuacao{
+    display: none;
+}
+.flex-colunar {
+    display: flex;
+    flex-direction: column;
+}
+
+.width-fit-content {
+    width: fit-content;
+}
+
+.border-primary {
+    border: 3px solid var(--primary-brand-color);
+}
+
+.border-secondary {
+    border: 3px solid var(--secondary-brand-color);
+}
+
+#infoQuestao{
+    color:  #C99F4B;
+    font-size: 20px;
+    margin-left: 200px;
+}
+.barra-progresso {
+    width: 100%;
+    height: 10px;
+    background: #1e1e1e;
+    border-radius: 999px;
+    overflow: hidden;
+    margin: 8px 0 16px;
+}
+
+.barra-progresso-preenchimento {
+    height: 100%;
+    width: 0%;
+    border-radius: 999px;
+    background: linear-gradient(90deg, #f0d27a, #b8862e, #7a5518);
+    transition: width .4s ease;
+}
+
+#spanQuestaoExibida{
+    font-size: 28px;
+}
+.opcao {
+    display: block;
+    width: 700px;
+    padding: 25px 14px;
+    align-items: center;
+    margin-bottom: 12px;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background .2s, border-color .2s;
+}
+
+/* esconde a bolinha, mas mantém acessível por teclado */
+.opcao .radio {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.opcao:hover { 
+    border-color: rgba(255, 217, 0, 0.712);
+}
+
+/* opção selecionada: linha inteira muda de cor */
+.opcao:has(.radio:checked) {
+    border-color: rgba(255, 217, 0, 0.712);
+    background:rgba(255, 217, 0, 0.455);
+}
+
+/* após submeter, o travamento não deve parecer clicável */
+.opcao:has(.radio:disabled) { cursor: default; }
+
+/* certo/errado precisam vencer a cor de "selecionada" */
+.opcao.text-success-with-bg { background: #2ab57671 !important; border-color: #198754 !important; }
+.opcao.text-danger-with-bg  { background: #b41b2860 !important; border-color: #dc3545 !important; }
+
+
+.padding-8 {
+    padding: 8px;
+}
+
+.text-bold {
+    font-weight: bold;
+}
+
+.font-size{
+    font-size: 20px;
+}
+
+.text-success-with-bg {
+    background-color: var(--success-light);
+}
+
+.text-warning-with-bg {
+    color: var(--warning-dark);
+    background-color: var(--warning-light);
+}
+
+.text-danger-with-bg {
+    background-color: var(--danger-light);
+}
+
+.text-new-gray {
+    color: var(--new-gray);
+}
+
+#btnSubmeter, #btnProx, #btnTentarNovamente{
+    height: 50px;
+}
+.botao, #btnIniciarQuiz{
+    background: linear-gradient( 90deg, #EDD185 0%, #C99F4B 50%, #8D6125 100%);
+    border: none;
+    margin-bottom: 10px;
+}
+
+#btnIniciarQuiz{
+    height: 40px;
+    width: 300px;
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 250px;
+    margin-left: 19%;
+
+}
+#secao5 .h1-musicas{
+    text-align: center;
+    font-size: 50px;
+    margin-top: 20px;
+    margin-bottom: 40px;
+    color: #b8862e;
+}
+
+#secao5 h2{
+    text-align: center;
+    font-size: 35px;
+    margin-top: 20px;
+    margin-bottom: 40px;
+    color: #b8862e;
+}
+
+.Musicas{
+    height: 520px;
+    width: 600px;
+    border-radius: 20px;
+    background-color: #212427;
+    margin-left: 30%;
+    margin-bottom: 50px;
+}
+
+.podio{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    border-bottom: rgb(184, 182, 182) 1px solid;
+
+}
+.primeiroLugar, .segundoLugar, .terceiroLugar{
+     display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-left: 10px;
+    width: 190px;
+    height: 100px;
+    border-radius: 10px;
+    color: #000;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 10px;
+}
+.segundoLugar{
+    background-color: #a7a5a5;
+}
+
+.primeiroLugar{
+    background-color: #e0a237;
+}
+
+.terceiroLugar{
+    background-color: rgb(131, 84, 37);
+}
+.nomeMusica {
+    font-size: 20px;
+    margin-bottom: 40px;
+}
+
+#btn-montar{
+    background: linear-gradient( 90deg, #EDD185 0%, #C99F4B 50%, #8D6125 100%); 
+    padding: 20px;
+    font-weight: bold;
+    border: none;
+    font-size: 16px;
+    margin-left: 45%;
+    margin-bottom: 20px;
+}
+
+/* Fundo que deixa o restante da página embaçado */
+.overlay-top7 {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.55);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    z-index: 999;
+}
+
+/* Janela do Top 7 */
+.montar-Top7 {
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+    background-color: #1e1e1e;
+    color: #e0a237;
+    font-weight: bold;
+    padding: 30px;
+    border-radius: 15px;
+    width: 90%;
+    max-width: 450px;
+    max-height: 85vh;
+    overflow-y: auto;
+    box-shadow: 0 0 25px rgba(0, 0, 0, 0.3);
+    scrollbar-color: #e0a237 #1e1e1e;
+}
+
+.montar-Top7 input{
+    width: 430px;
+    height: 30px;
+    margin-top: 10px;
+    font-weight: bold;
+    color: #b8862e;
+    background-color: black;
+    border-radius: 10px;
+    border: 1.5px #b8862e solid;
+    padding-left: 16px;
+    font-size: 16px;
+}
+
+.montar-Top7 button{
+    background: linear-gradient( 90deg, #EDD185 0%, #C99F4B 50%, #8D6125 100%);
+    border: none;
+    font-weight: bold;
+    font-size: 16px;
+    width: 170px;
+    height: 30px;
+    margin-left: 20px;
+    border-radius: 5px;
+}
+
+.posicao{
+    margin-bottom: 30px;
+    margin-left: 30px;
+    margin-top: 20px;
+    color: #e0a237;
+    font-weight: bold;
+}
+
+.playlist {
+    width: 100%;
+    min-height: 100vh;
+    background: linear-gradient(to bottom, #D4AF37 0%, #806020 30%, #292016 55%, #121212 80%);
+    padding: 0px;
+}
+
+/* Cabeçalho */
+
+.playlist-header {
+    width: 100%;
+    max-width: 1600px;
+    min-height: 400px;
+    margin: auto;
+    padding: 10px;
+
+    box-sizing: border-box;
+    background:linear-gradient(to bottom,rgba(0,0,0,0.1), rgba(18,18,18,0.9) ),url("../assets/imgs/capaAlbum.jpg");
+    background-size: cover;
+    background-position: center;
+}
+
+
+.informacoes {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 290px;
+    color: #D4AF37;
+}
+
+.informacoes h1 {
+    font-size: 65px;
+    margin: 0;
+    font-weight: 800;
+}
+
+/* Lista de músicas */
+
+.cabecalho-musicas {
+    border-bottom: 1px solid #444;
+}
+
+.musica {
+    display: grid;
+    grid-template-columns: 40px 2fr 1fr;
+    align-items: center;
+    padding: 12px 15px;
+    gap: 10px;
+    color: #b3b3b3;
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.musica:hover {
+    background: rgba(255,255,255,0.1);
+    border-radius: 5px;
+}
+
+.titulo-musica {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.titulo-musica strong {
+    color: white;
+    font-size: 20px;
+}
+
+.titulo-musica audio {
+    width: 100%;
+    max-width: 350px;
+    height: 40px;
+}

@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <link rel="shortcut icon" href="../assets/icon/favicon2.ico" type="image/x-icon">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AquaTech | Espécies</title>
+
+    <link rel="stylesheet" href="./../css/dashboards.css">
+    <link rel="stylesheet" href="./../css/estilo.css" />
+    <script src="../js/sessao.js"></script>
+    <script src="./../js/alerta.js"></script>
+    <script src="./../js/especies.js"></script>
+</head>
+<body onload="validarSessao(), carregarEspecies()" style="background-color: #161618;">
+
+    <div class="janela">
+        <div class="header-left">
+            <h1>AquaTech</h1>
+            <div class="hello">
+                <h3>Olá, <span id="b_usuario">usuário</span>!</h3>
+            </div>
+            <div class="btn-nav-white">
+                <a href="cards.html"><h3>Aquários e Terrários</h3></a>
+            </div>
+            <div class="btn-nav-white">
+                <a href="dashboard.html"><h3>Gráficos</h3></a>
+            </div>
+            <div class="btn-nav">
+                <h3>Espécies</h3>
+            </div>
+            <div class="btn-logout" onclick="limparSessao()"><h3>Sair</h3></div>
+        </div>
+
+        <div class="dash-right">
+            <div class="container">
+                <h1>Gerenciar Espécies</h1>
+                <div class="div-actions">
+                    <button onclick="abrirFormulario()">Nova Espécie</button>
+                </div>
+                <div class="div-results">
+                    <div id="lista_especies"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- formulário simples modal (puro JS) -->
+    <div id="modal_form" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.6);">
+        <div style="background:#fff; width:600px; margin:80px auto; padding:20px;">
+            <h2 id="titulo_form">Nova Espécie</h2>
+            <form id="form_especie" onsubmit="return enviarFormulario()">
+                <label>Nome:<br><input id="input_nome" required></label><br>
+                <label>Tipo de Aquário:<br>
+                    <select id="input_tipo">
+                        <option value="agua-doce">Água Doce</option>
+                        <option value="agua-salgada">Água Salgada</option>
+                    </select>
+                </label><br>
+                <label>Aquário (opcional, id):<br><input id="input_fk_aquario" type="number"></label><br>
+                <label>Características:<br><textarea id="input_caracteristicas"></textarea></label><br>
+                <button type="submit">Salvar</button>
+                <button type="button" onclick="fecharFormulario()">Cancelar</button>
+            </form>
+        </div>
+    </div>
+
+</body>
+
+<script>
+    b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
+
+    function abrirFormulario() {
+        document.getElementById('modal_form').style.display = 'block';
+        document.getElementById('form_especie').reset();
+        document.getElementById('titulo_form').innerText = 'Nova Espécie';
+        sessionStorage.ESPECIE_EDITANDO = '';
+    }
+
+    function fecharFormulario() {
+        document.getElementById('modal_form').style.display = 'none';
+    }
+
+    function enviarFormulario() {
+        var idEditando = sessionStorage.ESPECIE_EDITANDO;
+        var payload = {
+            nome: document.getElementById('input_nome').value,
+            tipo_aquario: document.getElementById('input_tipo').value,
+            caracteristicas: document.getElementById('input_caracteristicas').value,
+            fk_aquario: document.getElementById('input_fk_aquario').value || null,
+            fk_empresa: sessionStorage.ID_EMPRESA
+        };
+
+        if (!idEditando) {
+            fetch('/especies/cadastrar', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            }).then(function (resposta) {
+                if (resposta.ok) {
+                    alert('Espécie cadastrada com sucesso');
+                    fecharFormulario();
+                    carregarEspecies();
+                } else if (resposta.status == 409) {
+                    resposta.text().then(t => alert(t));
+                } else {
+                    alert('Erro ao cadastrar espécie: ' + resposta.status);
+                }
+            }).catch(function (e) { console.error(e); alert('Erro de conexão'); });
+        } else {
+            fetch('/especies/editar/' + idEditando, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            }).then(function (resposta) {
+                if (resposta.ok) {
+                    alert('Espécie editada com sucesso');
+                    fecharFormulario();
+                    carregarEspecies();
+                } else {
+                    alert('Erro ao editar espécie: ' + resposta.status);
+                }
+            }).catch(function (e) { console.error(e); alert('Erro de conexão'); });
+        }
+
+        return false;
+    }
+
+    function carregarEspecies() {
+        var empresaId = sessionStorage.ID_EMPRESA;
+        fetch('/especies?empresaId=' + empresaId).then(function (resposta) {
+            if (resposta.ok) {
+                resposta.json().then(function (dados) {
+                    var container = document.getElementById('lista_especies');
+                    container.innerHTML = '';
+                    // caso a model retorne conjuntos múltiplos, pegar primeiro
+                    var registros = Array.isArray(dados) && dados.length > 0 && dados[0].id !== undefined ? dados : (Array.isArray(dados[0]) ? dados[0] : dados);
+                    if (!registros || registros.length == 0) {
+                        container.innerHTML = '<p>Nenhum resultado encontrado.</p>';
+                        return;
+                    }
+                    registros.forEach(function (item) {
+                        var div = document.createElement('div');
+                        div.className = 'publicacao';
+                        div.innerHTML = `<b>${item.nome}</b> <span>(${item.tipo_aquario})</span><div>${item.caracteristicas || ''}</div><div>ID Aquário: ${item.fk_aquario || '-'} </div><button onclick="editar(${item.id})">Editar</button> <button onclick="deletar(${item.id})">Deletar</button>`;
+                        container.appendChild(div);
+                    });
+                });
+            } else if (resposta.status == 204) {
+                document.getElementById('lista_especies').innerHTML = '<p>Nenhum resultado encontrado.</p>';
+            } else {
+                console.error('Erro ao listar espécies', resposta.status);
+            }
+        }).catch(function (e) { console.error(e); });
+    }
+
+    function editar(id) {
+        // carregar dados e abrir formulário
+        fetch('/especies/' + id).then(function (resposta) {
+            if (resposta.ok) {
+                resposta.json().then(function (item) {
+                    document.getElementById('input_nome').value = item.nome;
+                    document.getElementById('input_tipo').value = item.tipo_aquario;
+                    document.getElementById('input_caracteristicas').value = item.caracteristicas || '';
+                    document.getElementById('input_fk_aquario').value = item.fk_aquario || '';
+                    sessionStorage.ESPECIE_EDITANDO = id;
+                    document.getElementById('titulo_form').innerText = 'Editar Espécie';
+                    document.getElementById('modal_form').style.display = 'block';
+                });
+            } else {
+                alert('Erro ao carregar espécie');
+            }
+        });
+    }
+
+    function deletar(id) {
+        if (!confirm('Confirma exclusão da espécie id ' + id + '?')) return;
+        fetch('/especies/deletar/' + id, { method: 'DELETE' }).then(function (resposta) {
+            if (resposta.ok) {
+                alert('Espécie deletada');
+                carregarEspecies();
+            } else {
+                alert('Erro ao deletar espécie');
+            }
+        }).catch(function (e) { console.error(e); alert('Erro de conexão'); });
+    }
+</script>
