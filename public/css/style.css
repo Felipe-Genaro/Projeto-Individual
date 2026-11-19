@@ -105,11 +105,22 @@ nav a {
 }
 
 .Titulo {
-    color: white;
-
+    color: #b8862e;
+    font-size: 50px;
+    font-weight: 900;
     position: absolute;
     top: 150px;
     left: 110px;
+}
+
+.descricao_home{
+    color: #b8862e;
+    font-size: 30px;
+    font-weight: 800;
+    width: 400px;
+    position: absolute;
+    margin-top: 37%;
+    margin-left: 110px;
 }
 
 #secao2, #secao3, #secao4, #secao5{

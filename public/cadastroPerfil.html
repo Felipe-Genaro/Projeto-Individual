@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CADASTRO</title>
-    <link rel="stylesheet" href="../css/cadastro.css">
+    <link rel="stylesheet" href="./css/cadastro.css">
 </head>
 <body>
     <div class="mensagens">
@@ -15,12 +15,6 @@
             mergulha nas análises da comunidade e 
             decide nas enquetes o que marcará a próxima
             era dos jogos!</p>
-    </div>
-    <div id="div_msg" style="display: none;"></div>
-    <div class="alerta_erro">
-      <div class="card_erro" id="cardErro">
-        <span id="mensagem_erro"></span>
-      </div>
     </div>
      <div class="campo_cadastro">
         <h2>FAZER <span>LOGIN</span></h2>
@@ -44,12 +38,18 @@
         <button onclick="cadastrar()">CADASTRAR</button>
 
         <div id="div_aguardar" class="loading-div">
-          <img src="./assets/circle-loading.gif" id="loading-gif" />
+          <img src="./assets/circle-loading.gif" id="loading-gif" style="width: 50px; height: 50px; margin-left: 44%; margin-top: 20px;"/>
         </div>
 
         <div id="div_erros_login"></div>
 
         <a href="loginPerfil.html" id="voltar">⬅️ Voltar</a>
+    </div>
+    <div id="div_msg" style="display: none;"></div>
+        <div class="alerta_erro">
+          <div class="card_erro" id="cardErro">
+            <span id="mensagem_erro"></span>
+        </div>
     </div>
 </body>
 </html>

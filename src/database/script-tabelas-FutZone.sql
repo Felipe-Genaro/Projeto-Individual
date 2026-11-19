@@ -24,7 +24,7 @@ create table musica (
     constraint uq_musica unique (titulo)
 );
 
-create table podio (
+create table podium (
     id int primary key auto_increment,
     fk_usuario int not null,
     fk_musica int not null,
@@ -57,3 +57,38 @@ insert into musica (titulo) values
 ('Yo x Ti, Tu x Mi');
 
 select * from usuario;
+
+select * from podium;
+
+-- SELECT COM O NOME DA PESSOA E O PÓDIUM DELA COM AS MÚSICAS NAS POSIÇÕES CRESCENTE
+select 
+	u.nome 'Questão do Usuário',
+	m.titulo 'Nome da música',
+    p.posicao 'Posição da música'
+    from usuario u
+		join podium p 
+			on u.id = p.fk_usuario 
+		join musica m
+			on m.id = p.fk_musica
+	order by p.posicao asc;
+    
+-- MUSICAS QUE APARECERAM NO TOP 3
+select 
+	m.titulo 'Nome da música',
+    p.posicao 'Posição',
+    count(*) 'Quantidade de vezes no top 3'
+    from usuario u
+		join podium p 
+			on u.id = p.fk_usuario 
+		join musica m
+			on m.id = p.fk_musica
+	where p.posicao <= 3
+		group by m.titulo, p.posicao
+        order by p.posicao;
+        
+-- ALTERAÇÕES quiz desejavel
+-- data_hora datetime default current_timestamp,
+-- duracao int null
+
+
+select * from quiz;

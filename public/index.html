@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title> Home</title>
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="./css/style.css">
+    <script src="./js/quiz.js"></script>
     <script src="https://kit.fontawesome.com/a076d05399.js"></script>
 </head>
 <body>
@@ -12,7 +13,7 @@
     <!-- Navegação -->
     <header id="header">
         
-        <div class="logo img"><img src="../img/logo.png" alt="Logo"></div>
+        <div class="logo img"><img src="./assets/imgs/FutZone Soccer Gaming Emblem.png" style="height: 50px; width: 90px;"></div>
         
         <div class="menu-direito">
             <nav>
@@ -25,6 +26,7 @@
             </nav>
             
            <div class="conta">
+                <span id="b_usuario">Perfil</span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                     <circle cx="12" cy="12" r="11.5"></circle>
                     <circle cx="12" cy="8" r="4"></circle>
@@ -41,7 +43,8 @@
     <!-- Conteúdo da Página Principal (Home) -->
     <div class="content">
         <section  class="home" id="secao1">
-            <h1 class="Titulo">Aaaa</h1>
+            <h1 class="Titulo">Bem vindo ao FutZone!</h1>
+            <p class="descricao_home">Espaço de quem é FIFEIRO assim como eu!</p>
         </section>
 
         <section class="SobreMim" id="secao2">
@@ -319,7 +322,7 @@
                         <span>1</span>
                         <div class="titulo-musica">
                             <strong>Flicker of Light</strong>
-                            <audio controls src="../static/assets/Flicker of Light.mp3"></audio>
+                            <audio controls src="./assets/music/Flicker of Light.mp3"></audio>
                         </div>
                         
                     </div>
@@ -328,7 +331,7 @@
                         <span>2</span>
                         <div class="titulo-musica">
                             <strong>Hayya Hayya</strong>
-                            <audio controls src="../static/assets/Hayya Hayya.mp3"></audio>
+                            <audio controls src="./assets/music/Hayya Hayya.mp3"></audio>
                         </div>
                         
                     </div>
@@ -337,7 +340,7 @@
                         <span>3</span>
                         <div class="titulo-musica">
                             <strong>Jerk It Out</strong>
-                            <audio controls src="../static/assets/Jerk It Out.mp3"></audio>
+                            <audio controls src="./assets/music/Jerk It Out.mp3"></audio>
                         </div>
                         
                     </div>
@@ -346,7 +349,7 @@
                         <span>4</span>
                         <div class="titulo-musica">
                             <strong>Kids</strong>
-                            <audio controls src="../static/assets/Kids.mp3"></audio>
+                            <audio controls src="./assets/music/Kids.mp3"></audio>
                         </div>
                          
                     </div>
@@ -355,7 +358,7 @@
                         <span>5</span>
                         <div class="titulo-musica">
                             <strong>Levanta e Anda</strong>
-                            <audio controls src="../static/assets/Levanta e anda.mp3"></audio>
+                            <audio controls src="./assets/music/Levanta e anda.mp3"></audio>
                         </div>
                         
                     </div>
@@ -364,7 +367,7 @@
                         <span>6</span>
                         <div class="titulo-musica">
                             <strong>My Type</strong>
-                            <audio controls src="../static/assets/My Type.mp3"></audio>
+                            <audio controls src="./assets/music/My Type.mp3"></audio>
                         </div>
                         
                     </div>
@@ -373,7 +376,7 @@
                         <span>7</span>
                         <div class="titulo-musica">
                             <strong>SOFY</strong>
-                            <audio controls src="../static/assets/SOFY .mp3"></audio>
+                            <audio controls src="./assets/music/SOFY .mp3"></audio>
                         </div>
                          
                     </div>
@@ -382,7 +385,7 @@
                         <span>8</span>
                         <div class="titulo-musica">
                             <strong>The Nights</strong>
-                            <audio controls src="../static/assets/The Nights.mp3"></audio>
+                            <audio controls src="./assets/music/The Nights.mp3"></audio>
                         </div>
                         
                     </div>
@@ -391,7 +394,7 @@
                         <span>9</span>
                         <div class="titulo-musica">
                             <strong>Way Down We Go</strong>
-                            <audio controls src="../static/assets/Way Down We Go.mp3"></audio>
+                            <audio controls src="./assets/music/Way Down We Go.mp3"></audio>
                         </div>
                         
                     </div>
@@ -400,7 +403,7 @@
                         <span>10</span>
                         <div class="titulo-musica">
                             <strong>Yo x Ti, Tu x Mi</strong>
-                            <audio controls src="../static/assets/Yo x Ti, Tu x Mi.mp3"></audio>
+                            <audio controls src="./assets/music/Yo x Ti, Tu x Mi.mp3"></audio>
                         </div>
                         
                     </div>
@@ -431,15 +434,6 @@
                         </div>
                         
                     </div>
-
-                    <div class="musica">
-                        <span>14</span>
-                        <div class="titulo-musica">
-                            <strong>Levanta e Anda</strong>
-                            <audio controls src="../static/assets/Levanta e anda.mp3"></audio>
-                        </div>
-                        
-                    </div>
                 </div>
 
             </div>
@@ -447,14 +441,8 @@
 
         </section>
     </div>
-    <script>
-
-
-    </script>
-</body>
-</html>
 <script>
-      const listaDeQuestoes = [
+    const listaDeQuestoes = [
 
         {
             pergunta: "Quem era a capa do FIFA 15?",
@@ -710,22 +698,67 @@
         document.getElementById("barraProgressoPreenchimento").style.width = porcentagem + "%"
     }
 
+    // Carrega o top7 do usuário logado e preenche inputs/pódio
+    function carregarTop7DoUsuario() {
+        const idUsuario = sessionStorage.ID_USUARIO;
+        if (!idUsuario) return; // usuário não logado
+
+        fetch(`/musicas/top7?idUsuario=${encodeURIComponent(idUsuario)}`)
+            .then(res => {
+                if (!res.ok) throw new Error('Erro ao obter top7');
+                return res.json();
+            })
+            .then(data => {
+                const top7 = (data && data.top7) ? data.top7 : [];
+                // preencher inputs ipt_music_top1..7
+                for (let i = 0; i < 7; i++) {
+                    const valor = top7[i] || '';
+                    const input = document.getElementById('ipt_music_top' + (i + 1));
+                    if (input) input.value = valor;
+                }
+
+                // preencher pódio principal (1..3)
+                const podio = document.querySelector('#podioUsuario .podio');
+                if (podio) {
+                    const primeiro = podio.querySelector('.primeiroLugar .nomeMusica');
+                    const segundo = podio.querySelector('.segundoLugar .nomeMusica');
+                    const terceiro = podio.querySelector('.terceiroLugar .nomeMusica');
+                    if (primeiro) primeiro.textContent = top7[0] || '';
+                    if (segundo) segundo.textContent = top7[1] || '';
+                    if (terceiro) terceiro.textContent = top7[2] || '';
+                }
+
+                // preencher do 4º ao 7º
+                const posicoes = document.querySelectorAll('#podioUsuario .top7 .posicao');
+                for (let i = 0; i < posicoes.length && i < 4; i++) {
+                    const strong = posicoes[i].querySelector('strong');
+                    if (strong) strong.textContent = top7[3 + i] || '';
+                }
+            })
+            .catch(err => {
+                console.error('Não foi possível carregar Top7:', err);
+            });
+    }
+
     // Mensagens ao finalizar o Jogo
     function finalizarJogo() {
         let textoParaMensagemFinal = null
         let classComCoresParaMensagemFinal = null
         const porcentagemFinalDeAcertos = pontuacaoFinal / quantidadeDeQuestoes
 
-        if (porcentagemFinalDeAcertos <= 0.3) {
-            textoParaMensagemFinal = "Parece que você não estudou..."
+        // enviar ao backend os acertos e erros calculados
+        enviarResultadoQuiz(certas, erradas)
+
+        if (porcentagemFinalDeAcertos <= 0.6) {
+            textoParaMensagemFinal = "xiii, você joga PES?"
             classComCoresParaMensagemFinal = "text-danger-with-bg"
         }
-        else if (porcentagemFinalDeAcertos > 0.3 && porcentagemFinalDeAcertos < 0.9) {
-            textoParaMensagemFinal = "Pode melhorar na próxima, hein!"
+        else if (porcentagemFinalDeAcertos > 0.6 && porcentagemFinalDeAcertos < 0.9) {
+            textoParaMensagemFinal = "Pode melhorar na próxima, hein jogador!"
             classComCoresParaMensagemFinal = "text-warning-with-bg"
         }
         else if (porcentagemFinalDeAcertos >= 0.9) {
-            textoParaMensagemFinal = "Uau, parabéns!"
+            textoParaMensagemFinal = "Caramba! Você sabe muito de FIFA!!"
             classComCoresParaMensagemFinal = "text-success-with-bg"
         }
 
@@ -806,18 +839,87 @@
         }
 
 
-         // Enviando o valor da nova input
+        // Enviando o array de músicas e o id do usuário para o backend
+        const idUsuario = sessionStorage.ID_USUARIO;
+        if (!idUsuario) {
+            alert('Você precisa estar logado para cadastrar o Top 7. Faça login primeiro.');
+            return;
+        }
+
         fetch("/musicas/top7", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-            // crie um atributo que recebe o valor recuperado aqui
-            // Agora vá para o arquivo routes/usuario.js
-            musicaServer: valor,
-            posicaoServer: i,
-        }),
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                musicas: musicas,
+                idUsuario: idUsuario
+            }),
+        })
+        .then(res => {
+            if (!res.ok) throw new Error('Erro ao cadastrar top7');
+            return res.json();
+        })
+        .then(json => console.log('Top7 cadastrado:', json))
+        .catch(err => console.error(err));
+    }
+
+    function carregarTop7DoUsuario() {
+        const idUsuario = sessionStorage.ID_USUARIO
+        if (!idUsuario) { 
+            return
+        }
+        fetch(`/musicas/top7?idUsuario=${encodeURIComponent(idUsuario)}`)
+        .then(res => {
+            if (!res.ok) {
+                throw new Error ('Erro ao conseguir obter o seu top 7')
+            }
+            return res.json()
+        })
+        .then(data => {
+            const top7 = data.top7 || []
+
+            // Laço de repetição para reconhecer a posição da música 
+            for (let i = 0; i < 7; i++) {
+                const valor = (top7[i] !== undefined && top7[i] !== null) ? top7[i] : ''
+                const ipt = document.getElementById('ipt_music_top' + (i + 1))
+                const posicoes = document.querySelectorAll('#podioUsuario .top7 .posicao')
+                const podio = document.querySelector('#podioUsuario .podio')
+
+                if (ipt) {
+                    ipt.value = valor
+                }
+                // Condição para mostrar o podium
+                if (podio) {
+                    const primeiro = podio.querySelector('.primeiroLugar .nomeMusica');
+                    const segundo = podio.querySelector('.segundoLugar .nomeMusica');
+                    const terceiro = podio.querySelector('.terceiroLugar .nomeMusica');
+                    if (primeiro) {
+                        primeiro.textContent = top7[0]
+                    }
+                    if (segundo) {
+                        segundo.textContent = top7[1]
+                    }
+                    if (terceiro) {
+                        terceiro.textContent = top7[2]
+                    }
+                }
+                // Condição para reconhecer o 4º ao 7º colocado
+                if (posicoes[i]) {
+                    const strong = posicoes[i].querySelector('strong')
+                    if (strong) {
+                        strong.textContent = valor
+                    }
+                }
+
+            }
+        })
+        .catch(erro => {
+            console.error('Não teve como carregar o seu Top 7: ', erro)
         })
     }
+
+    document.addEventListener('DOMContentLoaded', carregarTop7DoUsuario)
 </script>
+</body>
+</html>
