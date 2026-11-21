@@ -28,11 +28,11 @@
 
 <!-- <body onload=" atualizarFeed()"> -->
 
-<body>
+<body onload="carregarKpis()">
 
     <div class="janela">
         <div class="header-left">
-            <h1>AquaTech</h1>
+            <h1>FutZone</h1>
 
             <div class="hello">
                 <h3>Olá, <span id="b_usuario">usuário</span>!</h3>
@@ -70,6 +70,20 @@
 
         <div class="dash">
             <div id="alerta">
+                <div id="kpi1">
+                    <div id="kpi1NomeMusica"></div>
+                    <div id="kpi1Indicator"></div>
+                </div>
+
+                <div id="kpi2">
+                    <div id="kpi2Nome"></div>
+                    <div id="kpi2Pontos"></div>
+                </div>
+
+                <div id="kpi3">
+                    <div id="kpi3QuantideDeParticipantes"></div>
+                </div>
+
             </div>
 
             <div class="btns-dash" id="btnAquario">
@@ -87,6 +101,100 @@
 
 <script>
     b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
+
+    document.addEventListener("DOMContentLoaded", () =>{
+        const kpi1 = document.getElementById('kpi1')
+        const kpi2 = document.getElementById('kpi2')
+        const kpi3 = document.getElementById('kpi3')
+    })
+
+    // TODAS AS KPIS
+            function carregarKpis(){
+                // Carregar informações da KPI 1
+                fetch("/dashboard/kpi1NomeMusica")
+                    .then(res => res.status === 204 ? [] : res.json())
+                    .then(dados => {
+                        if (dados.length > 0) {
+                            document.getElementById("kpi1NomeMusica").textContent = dados [0].Nome_da_musica
+                        }
+                    })
+                    .catch(erro => console.error("EROO na KPI 1, problema no nome da música:", erro))
+                
+                fetch("/dashboard/kpi1VezesTop3")
+                    .then(res => res.status === 204 ? [] : res.json())
+                    .then(dados => {
+                        if (dados.length > 0) {
+                            document.getElementById("kpi1Indicador").textContent = dados [0].Quantidade_de_vezes_no_top3
+                        }
+                    })
+                    .catch(erro => console.error("EROO na KPI 1, problema no nome da música:", erro))
+                
+
+                 // Carregar informações da KPI 2
+                fetch("/dashboard/kpi2MusicaComMaiorPontuacao")
+                    .then(res => res.status === 204 ? [] : res.json())
+                    .then(dados => {
+                        if (dados.length > 0) {
+                            document.getElementById("kpi2Pontos").textContent = dados [0].pontos
+                        }
+                    })
+                    .catch(erro => console.error("EROO na KPI 2, problema ao buscar música com maior pontuacao:", erro))
+
+                fetch("/dashboard/kpi2NomeMusicaComMaiorPontuacao")
+                    .then(res => res.status === 204 ? [] : res.json())
+                    .then(dados => {
+                        if (dados.length > 0) {
+                            document.getElementById("kpi2Nome").textContent = dados [0].nome_musica
+                        }
+                    })
+                    .catch(erro => console.error("EROO na KPI 2, problema no nome da música com maior pontuacao:", erro))
+
+
+                // Carregar informações da KPI 3
+                fetch("/dashboard/kpi3QuantideDeParticipantes")
+                    .then(res => res.status === 204 ? [] : res.json())
+                    .then(dados => {
+                        if (dados.length > 0) {
+                            document.getElementById("kpi3").textContent = dados[0].Qtd_respostas
+                        }
+                    })
+                    .catch(erro => console.error("EROO na KPI 3, problema na quantida de resposta dos usuários:", erro))
+            }
+
+        function preencherkpi1(resposta) {
+            console.log("KPI 1:", resposta) // Usado para mostrar as informações da 1 KPI
+            // Chamar as informações que serão puxadas do banco
+            const nome = resposta.nomeMusica[0].Nome_da_musica
+            const posicao = resposta.qntEmAlerta[0].posicao
+
+            document.getElementById("kpi1NomeMusica").innerText = nome
+            document.getElementById("kpi1Indicator").innerHTML = posicao
+
+        }
+
+        function preencherkpi2(resposta) {
+            console.log("KPI 2:", resposta) // Usado para mostrar as informações da 2 KPI
+            
+            // Chamar as informações que serão puxadas do banco
+            const nome_musica = resposta.dados[0].Nome_da_musica
+            const pontos = resposta.dados[0].pontos
+
+            document.getElementById("kpi2Nome").innerText = nome_musica
+            document.getElementById("kpi2Pontos").innerHTML = pontos
+        }
+
+        function preencherkpi3(resposta) {
+            console.log("KPI 3:", resposta) // Usado para mostrar as informações da 3 KPI
+            
+            // Chamar as informações que serão puxadas do banco
+            const qntParticipantes = resposta.dados[0].Qtd_respostas
+
+            document.getElementById("kpi3QuantideDeParticipantes").innerText = qntParticipantes
+        }
+
+
+
+
 
     let proximaAtualizacao;
 

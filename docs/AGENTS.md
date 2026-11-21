@@ -25,8 +25,8 @@ Bibliotecas: cors, dotenv, express, mysql2, nodemon, path.
 
 Estrutura e responsabilidade dos diretórios:
 
-- /web-data-viz/node_modules: criada após o comando 'npm i', com as bibliotecas necessárias para o funcionamento do projeto.
-- /web-data-viz/public; contendo os arquivos .html da primeira parte do front end do web site, onde o usuário irá 'ver'.
+- /Projeto-Individual/node_modules: criada após o comando 'npm i', com as bibliotecas necessárias para o funcionamento do projeto.
+- /Projeto-Individual/public; contendo os arquivos .html da primeira parte do front end do web site, onde o usuário irá 'ver'.
 - /public/dashboard: contendo os arquivos .html da dashboard do web site.
 - /public/js: contendo os arquivos alerta.js e sessao.js, que são responsáveis por fazer a chamada dos dados já capturados e armazenados em arrays, para executar as funções de alertas na dashboard e validar o login do usuário, respectivamente.
 - src/routes; contem os arquivos .js onde são estipuladas as rotas que os dados serão enviados.

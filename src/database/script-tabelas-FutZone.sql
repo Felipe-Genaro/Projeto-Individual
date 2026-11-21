@@ -59,9 +59,14 @@ insert into musica (titulo) values
 select * from usuario;
 
 select * from podium;
-
--- SELECT COM O NOME DA PESSOA E O PÓDIUM DELA COM AS MÚSICAS NAS POSIÇÕES CRESCENTE
-select 
+    
+select * from quiz;
+select * from podium;
+select * from usuario;
+select * from musica
+ order by id;
+ 
+ select 
 	u.nome 'Questão do Usuário',
 	m.titulo 'Nome da música',
     p.posicao 'Posição da música'
@@ -71,8 +76,12 @@ select
 		join musica m
 			on m.id = p.fk_musica
 	order by p.posicao asc;
-    
--- MUSICAS QUE APARECERAM NO TOP 3
+
+-- /////////////////////////// PARTE DA MÚSICA ///////////////////////////////////////
+
+-- KPI 1
+-- Musicas mais bem avaliadas
+-- MUSICAS QUE MAIS APARECERAM NO TOP 3
 select 
 	m.titulo 'Nome da música',
     p.posicao 'Posição',
@@ -86,9 +95,56 @@ select
 		group by m.titulo, p.posicao
         order by p.posicao;
         
--- ALTERAÇÕES quiz desejavel
--- data_hora datetime default current_timestamp,
--- duracao int null
+create view vw_musicas_top3 as
+select 
+	m.titulo as Nome_da_musica,
+    p.posicao as Posicao,
+    count(*) as Quantidade_de_vezes_no_top3
+    from usuario u
+		join podium p 
+			on u.id = p.fk_usuario 
+		join musica m
+			on m.id = p.fk_musica
+	where p.posicao <= 3
+		group by m.titulo, p.posicao
+        order by p.posicao;
+        
+select nome_da_musica from vw_musicas_top3;
+select Quantidade_de_vezes_no_top3 from vw_musicas_top3;
 
 
-select * from quiz;
+
+-- KPI 2
+-- Músicas com mais pontuação 
+create view vw_musica_pontuacao as
+select 
+	m.titulo as nome_musica, 
+    SUM(8 - p.posicao) as pontos
+	from podium p
+		join musica m 
+			on m.id = p.fk_musica
+	group by m.id, m.titulo
+	order by pontos desc
+	limit 1;
+    
+    select nome_musica from vw_musica_pontuacao;
+    select pontos from vw_musica_pontuacao;
+
+
+-- KPI 3
+-- Quantidade de participantes que já montaram seu Top 7
+create view vw_kpi3_respostas as
+select 
+	count(*) as Qtd_respostas
+    from quiz
+	group by fk_usuario; 
+
+select * from vw_kpi3_respostas;
+
+-- GRAFICO 1
+-- MUSICAS QUE MAIS APARECERAM NO PODIUM DAS PESSOAS
+-- SELECT COM O NOME DA PESSOA E O PÓDIUM DELA COM AS MÚSICAS NAS POSIÇÕES CRESCENTE
+
+    
+-- GRAFICO 2
+-- 

@@ -1,0 +1,8 @@
+MELHORIAS PROJETO INDIVIDUAL: 
+	- Mudar as músicas
+	- Fazer uma colinha na hora de montar o top7 músicas
+	- Nessa colinha quando clicar na música tocar um pedaço dela
+	- Trabalhar com mais cores para não deixar o site todo preto
+	- Ajustar o pin de carregar
+	- Espaçamento entre as sections 
+	
