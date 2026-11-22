@@ -1,4 +1,4 @@
-var dashboardModel = require("../models/dashboardModel");
+var dashboardModel = require("../models/dashboardModels");
 
 
 // KPI 1
@@ -82,6 +82,20 @@ function QuantideDeParticipantes(req, res) {
     });
 }
 
+function graficoPontuacao(req, res) {
+    dashboardModel.grafico1Pontuacao().then(function (resultado) {
+        if (resultado.length > 0) {
+            res.status(200).json(resultado);
+        } else {
+            res.status(204).send("Nenhum resultado encontrado!")
+        }
+    }).catch(function (erro) {
+        console.log(erro);
+        console.log("Houve um erro ao buscar as informações para o gráfico de Pontuação geral.", erro.sqlMessage);
+        res.status(500).json(erro.sqlMessage);
+    });
+}
+
 module.exports = {
     // 1ª KPI
     NomeMusicas,
@@ -90,5 +104,7 @@ module.exports = {
     NomeMusicaComMaiorPontuacao,
     MusicaComMaiorPontuacao,
     //3ª KPI
-    QuantideDeParticipantes
+    QuantideDeParticipantes,
+    // Gráfico Pontuação dos 8 melhores avaliados
+    graficoPontuacao
 }

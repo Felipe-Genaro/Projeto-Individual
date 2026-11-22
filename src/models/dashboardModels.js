@@ -1,4 +1,3 @@
-const dashController = require("../controllers/dashboardController")
 var database = require("../database/config")
 
 // COLOCAR OS DADOS DE CADA FUNÇÕES NA KPI
@@ -41,8 +40,13 @@ function kpi3QntDeParticipantes() {
     return database.executar(instrucaoSql)
 }
 
+function grafico1Pontuacao() {
+    var instrucaoSql = `select * from vw_ranking_musicas;`
+    console.log("Executando a instrução SQL: \n" + instrucaoSql)
+    return database.executar(instrucaoSql)
+}
+
 module.exports = {
-    dashController,
     // 1ª KPI
     kpi1NomeMusicaMaisApareceuNoTop3,
     kpi1QntDeVezesNoTop3,
@@ -50,5 +54,7 @@ module.exports = {
     kpi2MusicaMaiorPontuacao,
     kpi2PontuacaoDaMusica,
     //3ª KPI
-    kpi3QntDeParticipantes
+    kpi3QntDeParticipantes,
+    // Gráfico Ranking de pontuação
+    grafico1Pontuacao
 }

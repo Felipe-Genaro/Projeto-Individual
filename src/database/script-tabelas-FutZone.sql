@@ -144,7 +144,16 @@ select * from vw_kpi3_respostas;
 -- GRAFICO 1
 -- MUSICAS QUE MAIS APARECERAM NO PODIUM DAS PESSOAS
 -- SELECT COM O NOME DA PESSOA E O PÓDIUM DELA COM AS MÚSICAS NAS POSIÇÕES CRESCENTE
-
+create view vw_ranking_musicas as
+select 
+	m.titulo as nome_musica, 
+    SUM(8 - p.posicao) as pontos
+	from podium p
+		join musica m 
+			on m.id = p.fk_musica
+	group by m.id, m.titulo
+	order by pontos desc
+	limit 8;
     
 -- GRAFICO 2
 -- 

@@ -20,7 +20,7 @@ var usuarioRouter = require("./src/routes/usuarios");
 var avisosRouter = require("./src/routes/avisos");
 var musicasRouter = require("./src/routes/musicas");
 var quizRouter = require("./src/routes/quiz");
-var dashboardRouter = require("./src/routes/dasboard");
+var dashboardRouter = require("./src/routes/dashboard");
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
