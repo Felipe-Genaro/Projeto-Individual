@@ -5,30 +5,29 @@ var dashboardModel = require("../models/dashboardModels");
 function NomeMusicas(req, res) {
 
     dashboardModel.kpi1NomeMusicaMaisApareceuNoTop3().then(function (resultado) {
-        if (resultado.length > 0) {
+        if (resultado && resultado.length > 0) {
             res.status(200).json(resultado);
         } else {
-            res.status(204).send("Nenhum resultado encontrado!")
+            // sempre retornar JSON consistente (array vazio) para o frontend
+            res.status(200).json([]);
         }
     }).catch(function (erro) {
-        console.log(erro);
-        console.log("Houve um erro ao buscar o nome da música que mais apareceu no top3.", erro.sqlMessage);
-        res.status(500).json(erro.sqlMessage);
+        console.error("Houve um erro ao buscar o nome da música que mais apareceu no top3.", erro);
+        res.status(500).json({ error: erro.sqlMessage || erro.message || erro });
     });
 }
 
 function QntDeVezesNoTop3(req, res) {
 
     dashboardModel.kpi1QntDeVezesNoTop3().then(function (resultado) {
-        if (resultado.length > 0) {
+        if (resultado && resultado.length > 0) {
             res.status(200).json(resultado);
         } else {
-            res.status(204).send("Nenhum resultado encontrado!")
+            res.status(200).json([]);
         }
     }).catch(function (erro) {
-        console.log(erro);
-        console.log("Houve um erro ao buscar a quantidade de viezes que a música apareceu no top3.", erro.sqlMessage);
-        res.status(500).json(erro.sqlMessage);
+        console.error("Houve um erro ao buscar a quantidade de viezes que a música apareceu no top3.", erro);
+        res.status(500).json({ error: erro.sqlMessage || erro.message || erro });
     });
 }
 
@@ -38,30 +37,28 @@ function QntDeVezesNoTop3(req, res) {
 function NomeMusicaComMaiorPontuacao(req, res) {
 
     dashboardModel.kpi2MusicaMaiorPontuacao().then(function (resultado) {
-        if (resultado.length > 0) {
+        if (resultado && resultado.length > 0) {
             res.status(200).json(resultado);
         } else {
-            res.status(204).send("Nenhum resultado encontrado!")
+            res.status(200).json([]);
         }
     }).catch(function (erro) {
-        console.log(erro);
-        console.log("Houve um erro ao buscar a musica com maior pontuação.", erro.sqlMessage);
-        res.status(500).json(erro.sqlMessage);
+        console.error("Houve um erro ao buscar a musica com maior pontuação.", erro);
+        res.status(500).json({ error: erro.sqlMessage || erro.message || erro });
     });
 }
 
 function MusicaComMaiorPontuacao(req, res) {
 
     dashboardModel.kpi2PontuacaoDaMusica().then(function (resultado) {
-        if (resultado.length > 0) {
+        if (resultado && resultado.length > 0) {
             res.status(200).json(resultado);
         } else {
-            res.status(204).send("Nenhum resultado encontrado!")
+            res.status(200).json([]);
         }
     }).catch(function (erro) {
-        console.log(erro);
-        console.log("Houve um erro ao buscar a pontuação sa música.", erro.sqlMessage);
-        res.status(500).json(erro.sqlMessage);
+        console.error("Houve um erro ao buscar a pontuação da música.", erro);
+        res.status(500).json({ error: erro.sqlMessage || erro.message || erro });
     });
 }
 
@@ -70,29 +67,56 @@ function MusicaComMaiorPontuacao(req, res) {
 function QuantideDeParticipantes(req, res) {
 
     dashboardModel.kpi3QntDeParticipantes().then(function (resultado) {
-        if (resultado.length > 0) {
+        if (resultado && resultado.length > 0) {
             res.status(200).json(resultado);
         } else {
-            res.status(204).send("Nenhum resultado encontrado!")
+            res.status(200).json([]);
         }
     }).catch(function (erro) {
-        console.log(erro);
-        console.log("Houve um erro ao buscar a quantidade de respostas que teve no formulário.", erro.sqlMessage);
-        res.status(500).json(erro.sqlMessage);
+        console.error("Houve um erro ao buscar a quantidade de respostas que teve no formulário.", erro);
+        res.status(500).json({ error: erro.sqlMessage || erro.message || erro });
     });
 }
 
-function graficoPontuacao(req, res) {
-    dashboardModel.grafico1Pontuacao().then(function (resultado) {
-        if (resultado.length > 0) {
+// KPI 4 
+function mediaDeAcertos(req, res) {
+
+    dashboardModel.kpi4MediaAcertos().then(function (resultado) {
+        if (resultado && resultado.length > 0) {
             res.status(200).json(resultado);
         } else {
-            res.status(204).send("Nenhum resultado encontrado!")
+            res.status(200).json([]);
         }
     }).catch(function (erro) {
-        console.log(erro);
-        console.log("Houve um erro ao buscar as informações para o gráfico de Pontuação geral.", erro.sqlMessage);
-        res.status(500).json(erro.sqlMessage);
+        console.error("Houve um erro ao buscar a média de acertos do QUIZ.", erro);
+        res.status(500).json({ error: erro.sqlMessage || erro.message || erro });
+    });
+}
+
+
+function graficoPontuacao(req, res) {
+    dashboardModel.grafico1Pontuacao().then(function (resultado) {
+        if (resultado && resultado.length > 0) {
+            res.status(200).json(resultado);
+        } else {
+            res.status(200).json([]);
+        }
+    }).catch(function (erro) {
+        console.error("Houve um erro ao buscar as informações para o gráfico de Pontuação geral.", erro);
+        res.status(500).json({ error: erro.sqlMessage || erro.message || erro });
+    });
+}
+
+function graficoTop3(req, res) {
+    dashboardModel.grafico2Ranking().then(function (resultado) {
+        if (resultado && resultado.length > 0) {
+            res.status(200).json(resultado);
+        } else {
+            res.status(200).json([]);
+        }
+    }).catch(function (erro) {
+        console.error("Houve um erro ao buscar as informações para o gráfico do Ranking top 3.", erro);
+        res.status(500).json({ error: erro.sqlMessage || erro.message || erro });
     });
 }
 
@@ -105,6 +129,9 @@ module.exports = {
     MusicaComMaiorPontuacao,
     //3ª KPI
     QuantideDeParticipantes,
+    //4ª KPI 
+    mediaDeAcertos,
     // Gráfico Pontuação dos 8 melhores avaliados
-    graficoPontuacao
+    graficoPontuacao,
+    graficoTop3
 }

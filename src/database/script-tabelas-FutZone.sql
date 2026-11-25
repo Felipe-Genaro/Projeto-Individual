@@ -141,6 +141,9 @@ select
 
 select * from vw_kpi3_respostas;
 
+-- KPI 4
+create view vw_kpi4_media_acertos as
+select round(avg(acertos),1) as qnt_acertos from quiz;
 -- GRAFICO 1
 -- MUSICAS QUE MAIS APARECERAM NO PODIUM DAS PESSOAS
 -- SELECT COM O NOME DA PESSOA E O PÓDIUM DELA COM AS MÚSICAS NAS POSIÇÕES CRESCENTE
@@ -156,4 +159,19 @@ select
 	limit 8;
     
 -- GRAFICO 2
--- 
+
+create or replace view vw_grafico_top3 as
+select
+    m.titulo as Nome_da_musica,
+     SUM(8 - p.posicao) as pontos,
+    count(case when p.posicao = 1 then 1 end) as Primeiro,
+    count(case when p.posicao = 2 then 1 end) as Segundo,
+    count(case when p.posicao = 3 then 1 end) as Terceiro,
+    count(*) as Total_top3
+from podium p
+    join musica m on m.id = p.fk_musica
+where p.posicao <= 6
+group by m.id, m.titulo
+order by pontos desc;
+
+select * from vw_grafico_top3;

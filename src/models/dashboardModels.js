@@ -40,11 +40,32 @@ function kpi3QntDeParticipantes() {
     return database.executar(instrucaoSql)
 }
 
+// KPI 4 ----------------------------------------------
+function kpi4MediaAcertos() {
+    var instrucaoSql = `select * from vw_kpi4_media_acertos;`
+    console.log("Executando a instrução SQL: \n" + instrucaoSql)
+    return database.executar(instrucaoSql)
+}
+
 function grafico1Pontuacao() {
     var instrucaoSql = `select * from vw_ranking_musicas;`
     console.log("Executando a instrução SQL: \n" + instrucaoSql)
     return database.executar(instrucaoSql)
 }
+
+function grafico2Ranking() {
+    var instrucaoSql = `
+        select  Nome_da_musica, 
+                Primeiro, 
+                Segundo, 
+                Terceiro, 
+                Total_top3
+            from vw_grafico_top3
+            order by Total_top3 desc, Primeiro desc
+            limit 6;`
+    console.log("Executando a instrução SQL: \n "+ instrucaoSql)
+    return database.executar(instrucaoSql)
+} 
 
 module.exports = {
     // 1ª KPI
@@ -55,6 +76,9 @@ module.exports = {
     kpi2PontuacaoDaMusica,
     //3ª KPI
     kpi3QntDeParticipantes,
+    //4ª KPI 
+    kpi4MediaAcertos,
     // Gráfico Ranking de pontuação
-    grafico1Pontuacao
+    grafico1Pontuacao,
+    grafico2Ranking
 }

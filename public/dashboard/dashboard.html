@@ -9,7 +9,6 @@
     
     <link rel="shortcut icon" href="../assets/imgs/FutZone Soccer Gaming Emblem.png" type="image/x-icon">
     <link rel="stylesheet" href="./../css/dashboard.css">
-    <link rel="stylesheet" href="./../css/estilo.css" />
     <script src="../js/sessao.js"></script>
     <script src="./../js/alerta.js"></script>
 
@@ -40,18 +39,6 @@
 
             <div class="btn-nav">
                     <h3>Levantamento das Músicas</h3>
-            </div>
-
-            <div class="btn-nav-white">
-                <a href="dashboardQuiz.html">
-                    <h3>Levantamento do Quiz</h3>
-                </a>
-            </div>
-
-            <div class="btn-nav-white">
-                <a href="mural.html">
-                    <h3>Mural de Avisos</h3>
-                </a>
             </div>
 
             <div class="btn-logout" onclick="limparSessao()">
@@ -93,12 +80,12 @@
                     <h3>MÉDIA DE NOTA</h3>
 
                     <div class="comparador texto_indicadores texto-kpi4">
-                        <span id="kpi4MediaNota"></span>
+                        <div id="kpi4MediaNota"></div>
                         <span>de 10</span>
                     </div>
 
                     <p class="texto_secundario">
-                        Acertos por tentativas
+                        Acertos por tentativas no QUIZ
                     </p>
                 </div>
 
@@ -185,6 +172,27 @@
                         }
                     })
                     .catch(erro => console.error("EROO na KPI 3, problema na quantida de resposta dos usuários:", erro))
+
+                // Carregar informações da KPI 3
+                fetch("/dashboard/kpi3QuantideDeParticipantes")
+                    .then(res => res.status === 204 ? [] : res.json())
+                    .then(dados => {
+                        if (dados.length > 0) {
+                            document.getElementById("kpi3QuantideDeParticipantes").textContent = dados[0].Qtd_respostas
+                        }
+                    })
+                    .catch(erro => console.error("EROO na KPI 3, problema na quantida de resposta dos usuários:", erro))
+
+                // Carregar informações da KPI 4
+                fetch("/dashboard/kpi4MediaNota")
+                    .then(res => res.status === 204 ? [] : res.json())
+                    .then(dados => {
+                        if (dados.length > 0) {
+                            // a view vw_kpi4_media_acertos retorna o campo 'qnt_acertos'
+                            document.getElementById("kpi4MediaNota").textContent = dados[0].qnt_acertos
+                        }
+                    })
+                    .catch(erro => console.error("EROO na KPI 4, problema na Média de Acertos:", erro))
             }
 
         function preencherkpi1(resposta) {
@@ -218,6 +226,16 @@
             document.getElementById("kpi3QuantideDeParticipantes").innerText = qntParticipantes
         }
 
+        function preencherkpi4(resposta) {
+            console.log("KPI 4:", resposta) // Usado para mostrar as informações da 3 KPI
+            
+            // Chamar as informações que serão puxadas do banco
+            // a view vw_kpi4_media_acertos retorna o campo 'qnt_acertos'
+            const mediaAcertos = resposta.dados[0].qnt_acertos
+
+            document.getElementById("kpi4MediaNota").innerText = mediaAcertos
+        }
+
 
 
 
@@ -247,7 +265,28 @@
         </div>
     `;
 
-    // Faz um fetch completo para o endpoint do backend que retorna os dados de vw_ranking_musicas
+    document.getElementById("graficoVezesNoTop3").innerHTML = `
+        <h2>Quem aparece no Top 3</h2>
+        <p>Quantidade de pessoas que colocaram a música em cada posição no podium</p>
+        <div id="graficoTop3" class="display-block">
+            <div class="graph2">
+                <canvas id="myChartCanvasRanking"></canvas>
+            </div>
+            <div class="label-captura">
+                <p id="avisoCaptura" style="color: white"></p>
+            </div>
+        </div>
+    `
+
+    let chartPontuacao = null
+    let myChartRanking = null
+
+    // obterDadosGrafico está definido mais abaixo; a versão anterior (com Promise.all)
+    // foi removida para evitar funções duplicadas e nomes inconsistentes.
+    
+    
+
+
     function obterDadosGrafico() {
         if (proximaAtualizacao != undefined) {
             clearTimeout(proximaAtualizacao);
@@ -264,14 +303,63 @@
             .catch(function (error) {
                 console.error(`Erro na obtenção dos dados p/ gráfico de pontuação: ${error.message}`);
             });
+
+        fetch('/dashboard/grafico2Ranking', { cache: 'no-store' })
+            .then(res => res.status === 204 ? [] : res.json())
+            .then(function (resposta) {
+                if (!resposta || resposta.length === 0) return;
+                console.log(`Dados recebidos (ranking): ${JSON.stringify(resposta)}`);
+                plotarGraficoRanking(resposta);
+            })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico do ranking: ${error.message}`);
+            });
     }
 
-    // Recebe o array retornado pela view e transforma em labels e valores para o Chart.js
+    // Função para plotar o gráfico de ranking (vezes no Top 3).
+    // Renomeada para plotarGraficoRanking e usa a variável myChartRanking
+    function plotarGraficoRanking(dados) {
+        const labels = dados.map(d => d.Nome_da_musica)
+        const primeiro = dados.map(d => Number(d.Primeiro))
+        const segundo = dados.map(d => Number(d.Segundo))
+        const terceiro = dados.map(d => Number(d.Terceiro))
+
+        if (!myChartRanking) {
+            myChartRanking = new Chart(document.getElementById('myChartCanvasRanking'), {
+                type: 'bar',
+                data: { labels, datasets: [
+                    { label: '1º', data: primeiro, backgroundColor: '#526B32' },
+                    { label: '2º', data: segundo,  backgroundColor: '#C45125' },
+                    { label: '3º', data: terceiro, backgroundColor: '#E5A13A' }
+                ]},
+                options: { 
+                    indexAxis: 'y', 
+                    color: 'black',
+                    scales: { x: { stacked: true, ticks: {
+                            color: 'black',
+                            font: {
+                                size: 14,
+                                weight: 'bold'}
+                        }, }, y: { stacked: true, ticks: {
+                            color: 'black',
+                            font: {
+                                size: 14,
+                                weight: 'bold'}
+                        }, } } }
+            })
+        } else {
+            myChartRanking.data.labels = labels
+            myChartRanking.data.datasets[0].data = primeiro
+            myChartRanking.data.datasets[1].data = segundo
+            myChartRanking.data.datasets[2].data = terceiro
+            myChartRanking.update()
+        }
+    }
+
     function plotarGrafico(resposta) {
         const labels = [];
         const valores = [];
 
-        // Mapeamento tolerante: aceita vários aliases de campo que a view possa retornar
         for (let i = 0; i < resposta.length; i++) {
             const registro = resposta[i];
             const nome = registro.nome_musica || registro.Nome_da_musica || registro.nome || registro.musica || registro.titulo || 'Sem nome';
@@ -317,29 +405,81 @@
             }}
         };
 
-        // Instancia o Chart no canvas correto
+        // Instancia o Chart no canvas correto e guarda na variável global
         const ctx = document.getElementById('myChartCanvasPontuacao');
-        const myChart = new Chart(ctx, config);
+        chartPontuacao = new Chart(ctx, config);
 
-        // Atualização periódica simples: re-fetch e substitui os dados
-        proximaAtualizacao = setTimeout(() => atualizarGrafico(myChart), 5000);
+        // Atualização periódica simples: re-fetch e substitui os dados (usa a função sem parâmetros)
+        proximaAtualizacao = setTimeout(() => atualizarGrafico(), 5000);
     }
 
     // Atualiza o gráfico trocando labels e valores por completo
-    function atualizarGrafico(myChart) {
+    function atualizarGrafico() {
+        // Atualiza gráfico de pontuação
         fetch('/dashboard/grafico1Pontuacao', { cache: 'no-store' })
-            .then(res => res.status === 204 ? [] : res.json())
+            .then(res => {
+                if (res.status === 204) return [];
+                return res.text().then(text => {
+                    try { return JSON.parse(text); } catch (e) {
+                        console.error('Resposta inválida (grafico1Pontuacao):', text);
+                        throw e;
+                    }
+                });
+            })
             .then(function (resposta) {
                 if (!resposta || resposta.length === 0) return;
+                if (!chartPontuacao) return; // se o chart ainda não foi criado
                 const newLabels = resposta.map(r => r.nome_musica || r.Nome_da_musica || r.nome || r.musica || r.titulo || 'Sem nome');
                 const newValores = resposta.map(r => Number(r.pontos || r.Pontos || r.total_pontos || r.pontuacao || r.score || r.valor || 0));
-                myChart.data.labels = newLabels;
-                myChart.data.datasets[0].data = newValores;
-                myChart.update();
-                proximaAtualizacao = setTimeout(() => atualizarGrafico(myChart), 5000);
+                chartPontuacao.data.labels = newLabels;
+                chartPontuacao.data.datasets[0].data = newValores;
+                chartPontuacao.update();
             })
             .catch(function (error) {
                 console.error(`Erro na atualização do gráfico de pontuação: ${error.message}`);
+            });
+
+        // Atualiza gráfico de ranking (Top 3)
+        fetch('/dashboard/grafico2Ranking', { cache: 'no-store' })
+            .then(res => {
+                if (res.status === 204) return [];
+                return res.text().then(text => {
+                    try { return JSON.parse(text); } catch (e) {
+                        console.error('Resposta inválida (grafico2Ranking):', text);
+                        throw e;
+                    }
+                });
+            })
+            .then(function (resposta) {
+                if (!resposta || resposta.length === 0) return;
+                if (!myChartRanking) return; // ainda não criado
+
+                const newLabels = resposta.map(r => r.Nome_da_musica || r.nome_musica || r.nome || r.musica || r.titulo || 'Sem nome');
+                const primeiro = resposta.map(r => Number(r.Primeiro || r.primeiro || r.Primeiro_count || 0));
+                const segundo = resposta.map(r => Number(r.Segundo  || r.segundo  || 0));
+                const terceiro = resposta.map(r => Number(r.Terceiro || r.terceiro || 0));
+
+                myChartRanking.data.labels = newLabels;
+                // garante que existem 3 datasets
+                if (!myChartRanking.data.datasets || myChartRanking.data.datasets.length < 3) {
+                    myChartRanking.data.datasets = [
+                        { label: '1º', data: primeiro, backgroundColor: '#3888df' },
+                        { label: '2º', data: segundo, backgroundColor: '#e65b27' },
+                        { label: '3º', data: terceiro, backgroundColor: '#169e78' }
+                    ];
+                } else {
+                    myChartRanking.data.datasets[0].data = primeiro;
+                    myChartRanking.data.datasets[1].data = segundo;
+                    myChartRanking.data.datasets[2].data = terceiro;
+                }
+                myChartRanking.update();
+            })
+            .catch(function (error) {
+                console.error(`Erro na atualização do gráfico do ranking: ${error.message}`);
+            })
+            .finally(() => {
+                // agenda a próxima atualização somente após as tentativas de atualização terminarem
+                proximaAtualizacao = setTimeout(() => atualizarGrafico(), 5000);
             });
     }
 

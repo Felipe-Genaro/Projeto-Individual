@@ -2,14 +2,12 @@
 
 :root{
     --Fonte-Titulo: "Montserrat",sans-serif;
-    --Cor-Roxa: #5e17eb;
-    --Cor-Lilas: #a97eff; 
 }
 body{
     background-color: black;
     color: white;
     display: flex;
-    background: linear-gradient(135deg, #000000 0%, #000000 25%, #13171c 50%, #4723a9 75%, #bfa9f1 100%);
+    background: linear-gradient(135deg, #000000 0%, #000000 25%, #13171c 50%, #b8862e 75%, #eccd98 100%);
     min-height: 97vh;
 }
 .mensagens{
@@ -41,7 +39,7 @@ body{
     color: rgba(255, 255, 255, 0.679);
     font-weight: 300;
     margin-bottom: 180px;
-    border-left: #5e17eb 2px solid;
+    border-left:#b8862e 2px solid;
     padding-left: 20px;
     
 }
@@ -55,11 +53,11 @@ body{
     margin-right: 160px;
     background-color: rgb(10, 10, 10);
     box-shadow: 
-               0 0 30px rgba(111, 35, 255, 0.20),
-                0 0 60px rgba(111, 35, 255, 0.15),
-                0 0 100px rgba(111, 35, 255, 0.10);
+               0 0 30px rgba(255, 139, 16, 0.2),
+                0 0 60px rgba(255, 138, 35, 0.15),
+                0 0 100px rgba(255, 156, 35, 0.1);
     
-    border: 1px solid #523d8b;
+    border: 1px solid #b8862e;
     flex-direction: column;
     justify-content: center;
     padding: 0px 45px;
@@ -73,7 +71,7 @@ body{
 }
 
 .campo_cadastro h2 span{
-    color: var(--Cor-Lilas);
+    color:  #ad7823;
 }
 .campo_cadastro p{
     font-family: var(--Fonte-Titulo);
@@ -85,8 +83,7 @@ body{
     background-color: black;
     height: 50px;
     border-radius: 15px;
-    border-color: var(--Cor-Roxa);
-    border: 1.5px #b287dc66 solid;
+    border: 1.5px  #ad7823 solid;
     padding-left: 16px;
     font-size: 17px;
     margin-bottom: 4px;
@@ -152,7 +149,7 @@ body{
     font-family: var(--Fonte-Titulo);
     padding-top: 10px;
     background-color:  rgb(10, 10, 10);
-    border: 1px solid #523d8b;
+    border: 1px solid #ad7823;
 }
 
 .erro{

@@ -25,8 +25,18 @@ Router.get("/kpi3QuantideDeParticipantes", function (req, res) {
     dashController.QuantideDeParticipantes(req, res)
 })
 
+// KPI 4
+Router.get("/kpi4MediaNota", function (req, res) {
+    dashController.mediaDeAcertos(req, res)
+})
+
 // GRÁFICO 1
 Router.get("/grafico1Pontuacao", function (req, res) {
     dashController.graficoPontuacao(req, res)
 })
+
+Router.get("/grafico2Ranking", function (req, res) {
+    dashController.graficoTop3(req, res)
+})
+
 module.exports = Router
