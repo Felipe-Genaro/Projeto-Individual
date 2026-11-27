@@ -27,7 +27,7 @@
             </nav>
             
            <div class="conta">
-                <span id="b_usuario">Perfil</span>
+                <span id="b_usuario"></span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                     <circle cx="12" cy="12" r="11.5"></circle>
                     <circle cx="12" cy="8" r="4"></circle>
@@ -262,7 +262,7 @@
                     <p>8ª Hayya hayya</p>
                     <p>9ª Flicker Of Light</p>
                     <p>10ª Big Talk</p>
-                    <p>11ª Kuzoila</p>
+                    <p>11ª Kuzola</p>
                     <p>12ª Jerk It Out</p>
                     <p>13ª Kids</p>
                     <p>14ª Yo x Ti, Tu x Mi</p>
@@ -473,6 +473,7 @@
         </section>
     </div>
 <script>
+    document.getElementById("b_usuario").innerHTML = sessionStorage.NOME_USUARIO
     const listaDeQuestoes = [
 
         {
@@ -548,7 +549,7 @@
         },
 
         {
-            pergunta: "Em qual FIFA o modo CLUBS?",
+            pergunta: "Em qual FIFA o modo CLUBS estreiou?",
             alternativaA: "FIFA 09",
             alternativaB: "FIFA 11 ",
             alternativaC: "FIFA 15",
