@@ -191,3 +191,30 @@ body{
     padding-bottom: 5px;
     border-width: 5px;
 }
+
+.alerta_erro {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 1000;
+    width: max-content;
+    max-width: 90%;
+    pointer-events: none;
+}
+
+.card_erro {
+    display: none;   
+    background-color: rgb(10, 10, 10);
+    border: 1px solid #b8862e;
+    border-radius: 12px;
+    padding: 14px 28px;
+    color: white;
+    font-family: var(--Fonte-Titulo);
+    font-size: 16px;
+    font-weight: 600;
+    text-align: center;
+    box-shadow:
+        0 0 30px rgba(255, 139, 16, 0.2),
+        0 0 60px rgba(255, 138, 35, 0.15);
+}

@@ -27,7 +27,7 @@
             </nav>
             
            <div class="conta">
-                <span id="b_usuario"></span>
+                <span id="b_usuario">Usuário</span>
                 <svg xmlns="http://www.w3.org/2000/svg" width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
                     <circle cx="12" cy="12" r="11.5"></circle>
                     <circle cx="12" cy="8" r="4"></circle>
@@ -469,11 +469,42 @@
                     
             </div>
 
+            <footer class="footer">
+                <div class="footer-conteudo">
+
+                    <div class="footer-marca">
+                        <img src="./assets/imgs/FutZone Soccer Gaming Emblem.png" alt="Logo FutZone">
+                        <p>Espaço de quem é FIFEIRO. Teste seus conhecimentos no quiz e monte o seu Top 7 de músicas do FIFA.</p>
+                    </div>
+
+                    <nav class="footer-coluna" aria-label="Navegação do rodapé">
+                        <h3>Navegação</h3>
+                        <a href="#secao1">Início</a>
+                        <a href="#secao2">Sobre mim</a>
+                        <a href="#secao4">Mini game</a>
+                        <a href="#secao5">Montar Top 7</a>
+                        <a href="#secao6">Músicas</a>
+                    </nav>
+
+                    <div class="footer-coluna">
+                        <h3>Conta</h3>
+                        <a href="loginPerfil.html">Entrar</a>
+                        <!-- ajuste o caminho conforme a pasta da sua dashboard -->
+                        <a href="dashboard/dashboard.html">Dashboard</a>
+                    </div>
+
+                </div>
+            </footer>
+
 
         </section>
     </div>
 <script>
     document.getElementById("b_usuario").innerHTML = sessionStorage.NOME_USUARIO
+    if (!sessionStorage.NOME_USUARIO) {
+        document.getElementById("b_usuario").innerHTML = 'Usuário'
+    }
+    
     const listaDeQuestoes = [
 
         {
